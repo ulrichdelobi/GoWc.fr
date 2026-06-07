@@ -1,1 +1,2289 @@
-test
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#030C1A">
+<meta name="description" content="GoWc — Sanitaires propres dans tout le Nord (59). Géolocalisation, notes, avis.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>GoWc — Nord (59)</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════
+   TOILETTOGO — DESIGN SYSTEM v5
+   Fonts : Syne (display) + DM Sans (body)
+   Brand : Ocean deep × Teal × Gold premium
+   New : Géoloc auto · Double notation · Tri payants · Suggestions
+══════════════════════════════════════════ */
+:root{
+  --bg0:#02091A; --bg1:#05112A; --bg2:#08192E; --bg3:#0C2038; --bg4:#102844;
+  --t1:#00BBEE; --t2:#00D8FF; --t3:#33E5FF;
+  --plus:#F0C000; --plus2:#FFD340;
+  --g1:#00C47A; --g2:#00E090;
+  --rose:#FF3A5C; --amber:#FF9500; --white:#FFF;
+  --a80:rgba(255,255,255,.80); --a60:rgba(255,255,255,.60);
+  --a40:rgba(255,255,255,.40); --a20:rgba(255,255,255,.20);
+  --a12:rgba(255,255,255,.12); --a08:rgba(255,255,255,.08);
+  --a04:rgba(255,255,255,.04); --a02:rgba(255,255,255,.02);
+  --ta:rgba(0,187,238,.18); --ta2:rgba(0,187,238,.35);
+  --ga:rgba(0,196,122,.18); --pa:rgba(240,192,0,.18); --pa2:rgba(240,192,0,.32);
+  --nav:62px; --bnav:68px;
+  --max:1080px; --px:clamp(16px,4vw,36px);
+  --r1:10px; --r2:16px; --r3:22px; --r4:30px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{height:100%;-webkit-tap-highlight-color:transparent;scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg0);color:var(--white);overflow-x:hidden;min-height:100%;-webkit-font-smoothing:antialiased;}
+button,input,select,textarea{font-family:inherit;}
+button{cursor:pointer;border:none;outline:none;}
+input,select,textarea{outline:none;border:none;}
+
+/* AMBIENT */
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 55% 42% at 88% 4%,rgba(0,187,238,.13) 0%,transparent 55%),
+    radial-gradient(ellipse 45% 38% at 4% 92%,rgba(0,196,122,.09) 0%,transparent 50%),
+    radial-gradient(ellipse 35% 28% at 50% 52%,rgba(0,210,255,.05) 0%,transparent 45%);}
+#bg::after{content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(0,187,238,.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,187,238,.02) 1px,transparent 1px);
+  background-size:40px 40px;}
+
+/* SCREENS */
+.screen{display:none;min-height:100svh;position:relative;z-index:1;
+  padding-top:var(--nav);padding-bottom:calc(var(--bnav) + env(safe-area-inset-bottom,0px));
+  animation:sIn .4s cubic-bezier(.22,1,.36,1) both;}
+.screen.show{display:block;}
+@keyframes sIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:600;height:var(--nav);
+  display:flex;align-items:center;justify-content:space-between;padding:0 var(--px);
+  background:rgba(2,9,26,.9);backdrop-filter:blur(28px) saturate(180%);
+  border-bottom:1px solid rgba(0,187,238,.14);}
+.logo{display:flex;align-items:center;gap:9px;cursor:pointer;}
+.logo-orb{width:31px;height:31px;border-radius:8px;flex-shrink:0;
+  background:linear-gradient(135deg,#0066DD,var(--t1),var(--t3));
+  display:flex;align-items:center;justify-content:center;font-size:.9rem;
+  box-shadow:0 0 18px rgba(0,187,238,.4);}
+.logo-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.08rem;letter-spacing:-.3px;}
+.logo-base{background:linear-gradient(90deg,var(--t1),var(--t2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.logo-plus-pill{background:linear-gradient(135deg,var(--plus),var(--plus2));color:var(--bg0);
+  font-size:.55rem;font-weight:900;padding:1px 5px;border-radius:4px;margin-left:1px;
+  vertical-align:middle;letter-spacing:.3px;-webkit-text-fill-color:var(--bg0);}
+.nav-r{display:flex;gap:7px;align-items:center;}
+.nb{padding:7px 15px;border-radius:50px;font-size:.78rem;font-weight:700;transition:all .2s;}
+.nb-g{background:var(--a04);color:var(--a60);border:1px solid var(--a08);}
+.nb-g:hover{background:var(--a08);color:var(--white);border-color:var(--ta);}
+.nb-plus{background:linear-gradient(135deg,var(--plus),var(--plus2));color:var(--bg0);font-weight:900;box-shadow:0 3px 12px rgba(240,192,0,.28);}
+.nb-plus:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(240,192,0,.42);}
+.nb-t{background:linear-gradient(135deg,#0055CC,var(--t1));color:#fff;font-weight:800;box-shadow:0 3px 12px rgba(0,130,200,.28);}
+.nb-t:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,187,238,.42);}
+
+/* BOTTOM NAV */
+#bnav{position:fixed;bottom:0;left:0;right:0;z-index:600;height:var(--bnav);
+  display:flex;background:rgba(2,9,26,.96);backdrop-filter:blur(28px);
+  border-top:1px solid rgba(0,187,238,.12);padding-bottom:env(safe-area-inset-bottom,0);}
+.bn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;background:none;color:var(--a40);font-size:.59rem;font-weight:700;letter-spacing:.1px;transition:color .2s;}
+.bn-i{font-size:1.2rem;transition:transform .2s;}
+.bn:hover .bn-i{transform:scale(1.1);}
+.bn.on{color:var(--t2);}
+.bn.on .bn-i{filter:drop-shadow(0 0 7px rgba(0,210,255,.6));}
+
+/* TOKENS */
+.grad{background:linear-gradient(120deg,#0088EE,var(--t1) 45%,var(--t3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.grad-g{background:linear-gradient(120deg,var(--g1),var(--g2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.grad-plus{background:linear-gradient(120deg,var(--plus),var(--plus2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:50px;font-size:.65rem;font-weight:700;}
+.pt{background:rgba(0,187,238,.12);color:var(--t2);border:1px solid rgba(0,187,238,.22);}
+.pg{background:rgba(0,196,122,.12);color:var(--g2);border:1px solid rgba(0,196,122,.2);}
+.pp{background:rgba(240,192,0,.12);color:var(--plus);border:1px solid rgba(240,192,0,.22);}
+.pr{background:rgba(255,58,92,.12);color:#ff7a8a;border:1px solid rgba(255,58,92,.2);}
+.pw{background:var(--a04);color:var(--a60);border:1px solid var(--a08);}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;background:rgba(0,187,238,.07);border:1px solid rgba(0,187,238,.18);
+  border-radius:50px;padding:5px 13px;font-size:.68rem;font-weight:700;color:var(--t2);letter-spacing:.5px;text-transform:uppercase;}
+.pulse{width:6px;height:6px;border-radius:50%;background:var(--t2);animation:pl 1.4s infinite;}
+@keyframes pl{0%,100%{opacity:1}50%{opacity:.2}}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:13px 24px;border-radius:50px;font-weight:800;font-size:.88rem;transition:all .25s;cursor:pointer;border:none;}
+.btn-t{background:linear-gradient(135deg,#0055CC,var(--t1),var(--t3));color:#fff;box-shadow:0 6px 22px rgba(0,130,200,.3);}
+.btn-t:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,187,238,.5);}
+.btn-plus{background:linear-gradient(135deg,#C49600,var(--plus),var(--plus2));color:var(--bg0);font-weight:900;box-shadow:0 6px 20px rgba(240,192,0,.28);}
+.btn-plus:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(240,192,0,.48);}
+.btn-o{background:var(--a04);color:var(--white);border:1.5px solid rgba(0,187,238,.22);}
+.btn-o:hover{border-color:var(--ta2);background:rgba(0,187,238,.08);transform:translateY(-2px);}
+.btn-g{background:linear-gradient(135deg,#005538,var(--g1),var(--g2));color:var(--bg0);font-weight:900;box-shadow:0 6px 18px rgba(0,196,122,.22);}
+.btn-g:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,224,144,.38);}
+.btn-sm{padding:9px 18px;font-size:.77rem;}
+.btn-xs{padding:6px 12px;font-size:.7rem;border-radius:50px;font-weight:700;}
+
+/* TOAST */
+#toast{position:fixed;bottom:82px;left:50%;transform:translateX(-50%);
+  background:rgba(5,12,28,.97);color:var(--white);
+  padding:11px 22px;border-radius:50px;font-weight:700;font-size:.79rem;
+  z-index:900;box-shadow:0 14px 44px rgba(0,0,0,.5),0 0 0 1px rgba(0,187,238,.2);
+  white-space:nowrap;backdrop-filter:blur(20px);display:none;align-items:center;gap:7px;}
+#toast.show{display:flex;animation:tIn .35s cubic-bezier(.34,1.56,.64,1),tOut .3s ease 2.8s forwards;}
+@keyframes tIn{from{opacity:0;transform:translateX(-50%) translateY(14px) scale(.9)}to{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}}
+@keyframes tOut{to{opacity:0;transform:translateX(-50%) translateY(8px)}}
+
+/* MODAL */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.84);z-index:700;
+  align-items:center;justify-content:center;backdrop-filter:blur(6px);padding:16px;}
+.ov.open{display:flex;}
+.modal{background:var(--bg1);border:1px solid rgba(0,187,238,.16);
+  border-radius:var(--r4);padding:28px;width:100%;max-width:440px;
+  position:relative;max-height:90svh;overflow-y:auto;
+  animation:mIn .38s cubic-bezier(.34,1.56,.64,1);box-shadow:0 40px 100px rgba(0,0,0,.6);}
+.modal-wide{max-width:540px;}
+@keyframes mIn{from{opacity:0;transform:scale(.84) translateY(14px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.mc{position:absolute;top:13px;right:13px;width:27px;height:27px;
+  background:var(--a04);border:1px solid var(--a08);border-radius:50%;
+  color:var(--a60);font-size:.82rem;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.mc:hover{background:rgba(0,187,238,.1);color:var(--t2);}
+.mt{font-family:'Syne',sans-serif;font-weight:800;font-size:1.22rem;letter-spacing:-.3px;margin-bottom:3px;}
+.ms{font-size:.76rem;color:var(--a50,rgba(255,255,255,.5));margin-bottom:18px;}
+.mtabs{display:flex;gap:5px;margin-bottom:16px;}
+.mtab{flex:1;padding:9px;border-radius:10px;border:1px solid var(--a08);background:transparent;
+  color:rgba(255,255,255,.4);font-weight:700;font-size:.78rem;transition:all .2s;}
+.mtab.on{background:rgba(0,187,238,.1);border-color:var(--ta2);color:var(--t2);}
+.fg{margin-bottom:12px;}
+.fl{display:block;font-size:.67rem;font-weight:700;color:var(--a50,rgba(255,255,255,.5));
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+.fi{width:100%;padding:10px 13px;background:rgba(0,187,238,.04);border:1px solid var(--a08);
+  border-radius:11px;color:var(--white);font-size:.85rem;transition:border-color .2s,box-shadow .2s;}
+.fi:focus{border-color:rgba(0,187,238,.4);box-shadow:0 0 0 3px rgba(0,187,238,.07);}
+.fi::placeholder{color:rgba(255,255,255,.2);}
+select.fi option{background:var(--bg1);}
+.ma{width:100%;padding:13px;background:linear-gradient(135deg,#0055CC,var(--t1));
+  border:none;border-radius:12px;color:#fff;font-weight:900;font-size:.87rem;
+  margin-top:5px;transition:all .25s;box-shadow:0 6px 20px rgba(0,130,200,.28);}
+.ma:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,187,238,.45);}
+.ma-g{background:linear-gradient(135deg,#005538,var(--g1));}
+.ma-plus{background:linear-gradient(135deg,#C49600,var(--plus));}
+
+/* ══════════════════
+   STAR RATINGS — DOUBLE
+══════════════════ */
+.rating-section{background:var(--bg2);border:1px solid var(--a08);border-radius:var(--r2);padding:16px;margin-bottom:14px;}
+.rating-section-title{font-weight:700;font-size:.78rem;color:var(--a60);margin-bottom:11px;display:flex;align-items:center;gap:6px;}
+.star-row{display:flex;gap:6px;cursor:pointer;}
+.star-row span{font-size:1.7rem;color:rgba(255,255,255,.12);transition:all .15s;user-select:none;}
+.star-row span.lit{color:var(--plus);}
+.star-row span.hover-lit{color:rgba(240,192,0,.6);}
+.star-score{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:var(--plus);margin-left:10px;min-width:28px;}
+.rating-desc{font-size:.72rem;color:var(--a50,rgba(255,255,255,.5));margin-top:5px;min-height:16px;}
+
+/* ══════════════════
+   HOME SCREEN
+══════════════════ */
+#s-home{}
+.hero{max-width:var(--max);margin:0 auto;padding:50px var(--px) 34px;
+  display:grid;grid-template-columns:1.15fr .85fr;gap:50px;align-items:center;
+  min-height:calc(100svh - var(--nav) - var(--bnav));}
+.hero-tag{margin-bottom:18px;}
+.h1{font-family:'Syne',sans-serif;font-size:clamp(2.1rem,4.2vw,3.9rem);
+  font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:16px;}
+.hero-sub{font-size:.97rem;color:var(--a60);line-height:1.82;max-width:460px;margin-bottom:26px;}
+.hero-ctas{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:28px;}
+.hero-proof{display:flex;align-items:center;gap:12px;font-size:.74rem;color:var(--a50,rgba(255,255,255,.5));}
+.pfs{display:flex;}
+.pf{width:25px;height:25px;border-radius:50%;margin-right:-5px;border:2px solid var(--bg0);
+  background:linear-gradient(135deg,#0055AA,var(--t1));display:flex;align-items:center;justify-content:center;font-size:.62rem;}
+.hero-proof strong{color:var(--white);}
+
+/* PHONE */
+.phone-scene{position:relative;display:flex;justify-content:center;}
+.pframe{width:238px;background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.11);border-radius:35px;padding:11px;
+  box-shadow:0 40px 80px rgba(0,0,0,.55),0 0 60px rgba(0,187,238,.09),0 0 0 1px rgba(255,255,255,.04) inset;
+  animation:fl 4.5s ease-in-out infinite;}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.pnotch{width:55px;height:16px;background:var(--bg0);border-radius:0 0 10px 10px;margin:0 auto 8px;}
+.pscr{background:var(--bg1);border-radius:20px;padding:10px;overflow:hidden;}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
+.ph-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:.68rem;
+  background:linear-gradient(90deg,var(--t1),var(--t2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ph-city{font-size:.55rem;color:var(--a40);}
+.ph-search{background:rgba(0,187,238,.05);border:1px solid rgba(0,187,238,.1);border-radius:8px;
+  padding:6px 9px;font-size:.58rem;color:var(--a40);margin-bottom:7px;display:flex;align-items:center;gap:4px;}
+.ph-loc-btn{margin-left:auto;font-size:.56rem;color:var(--t2);font-weight:700;}
+.ph-row{border-radius:9px;padding:7px 8px;display:flex;align-items:center;gap:6px;
+  border:1px solid rgba(255,255,255,.06);margin-bottom:4px;animation:rIn .5s ease backwards;}
+.ph-row.rp{background:rgba(0,90,210,.07);border-color:rgba(0,90,210,.16);}
+.ph-row.rp2{background:rgba(0,187,238,.05);border-color:rgba(0,187,238,.12);animation-delay:.15s;}
+.ph-row.rg{background:rgba(0,196,122,.05);border-color:rgba(0,196,122,.1);animation-delay:.3s;}
+.ph-row.rg2{background:rgba(0,196,122,.04);border-color:rgba(0,196,122,.08);animation-delay:.45s;}
+@keyframes rIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:translateX(0)}}
+.ph-ico{font-size:1.15rem;width:25px;text-align:center;}
+.ph-nm{font-size:.59rem;font-weight:700;margin-bottom:1px;}
+.ph-in{font-size:.52rem;color:rgba(255,255,255,.37);}
+.ph-b{margin-left:auto;padding:2px 7px;border-radius:50px;font-size:.51rem;font-weight:800;white-space:nowrap;}
+.pb-p{background:rgba(240,192,0,.16);color:var(--plus);}
+.pb-f{background:rgba(0,196,122,.18);color:#00E090;}
+.ph-priority{position:absolute;top:-4px;right:-4px;width:12px;height:12px;border-radius:50%;
+  background:var(--plus);border:2px solid var(--bg1);display:flex;align-items:center;justify-content:center;font-size:6px;}
+.ph-row-wrap{position:relative;margin-bottom:4px;}
+
+.fb{position:absolute;background:rgba(4,12,26,.94);border:1px solid rgba(0,187,238,.18);
+  backdrop-filter:blur(16px);border-radius:11px;padding:8px 12px;font-size:.66rem;font-weight:600;
+  animation:fbIn .6s cubic-bezier(.34,1.56,.64,1) backwards;white-space:nowrap;}
+.fb-a{top:-10px;right:-36px;animation-delay:.4s;}
+.fb-b{bottom:44px;left:-48px;animation-delay:.7s;}
+.fb-c{bottom:-7px;right:-30px;animation-delay:1s;}
+@keyframes fbIn{from{opacity:0;transform:scale(.72)}to{opacity:1;transform:scale(1)}}
+.fb-v{display:block;font-size:.86rem;font-weight:900;}
+
+.home-stats{border-top:1px solid rgba(0,187,238,.12);display:grid;grid-template-columns:repeat(4,1fr);}
+.si{padding:18px var(--px);border-right:1px solid rgba(0,187,238,.12);text-align:center;}
+.si:last-child{border-right:none;}
+.sv{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800;letter-spacing:-1px;
+  background:linear-gradient(135deg,var(--white),var(--a60));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sl{font-size:.68rem;color:var(--a40);margin-top:2px;}
+
+.trust{background:linear-gradient(135deg,rgba(0,85,200,.07),rgba(0,187,238,.04));
+  border-top:1px solid rgba(0,187,238,.1);border-bottom:1px solid rgba(0,187,238,.1);
+  padding:18px var(--px);display:flex;align-items:center;justify-content:center;gap:36px;flex-wrap:wrap;}
+.ti{display:flex;align-items:center;gap:8px;font-size:.76rem;color:var(--a70,rgba(255,255,255,.7));}
+.ti strong{color:var(--white);}
+
+.sec{max-width:var(--max);margin:0 auto;padding:50px var(--px);}
+.sec-h{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-.8px;margin-bottom:4px;}
+.sec-s{color:var(--a50,rgba(255,255,255,.5));font-size:.78rem;margin-bottom:26px;}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;}
+.hc{background:var(--a02);border:1px solid var(--a08);border-radius:var(--r3);padding:22px;transition:all .3s;}
+.hc:hover{border-color:var(--ta);transform:translateY(-3px);}
+.hn{font-family:'Syne',sans-serif;font-size:2.1rem;font-weight:800;letter-spacing:-2px;
+  background:linear-gradient(135deg,#0080DD,var(--t3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:9px;line-height:1;}
+.hc h4{font-weight:800;font-size:.9rem;margin-bottom:5px;}
+.hc p{font-size:.77rem;color:var(--a50,rgba(255,255,255,.5));line-height:1.7;}
+
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.price-card{background:var(--a02);border:1px solid var(--a08);border-radius:var(--r3);padding:24px;transition:all .3s;}
+.price-card:hover{border-color:var(--ta);transform:translateY(-3px);}
+.price-card.plus{background:linear-gradient(135deg,rgba(197,150,0,.1),rgba(240,192,0,.06));border-color:rgba(240,192,0,.22);}
+.price-card.plus:hover{border-color:rgba(240,192,0,.4);transform:translateY(-3px);}
+.pc-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px;}
+.pc-price{font-family:'Syne',sans-serif;font-size:2.4rem;font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:4px;}
+.pc-per{font-size:.74rem;color:var(--a50,rgba(255,255,255,.5));margin-bottom:16px;}
+.pcf{display:flex;align-items:flex-start;gap:8px;font-size:.8rem;color:var(--a70,rgba(255,255,255,.7));margin-bottom:7px;}
+.lfooter{max-width:var(--max);margin:0 auto;padding:20px var(--px);
+  border-top:1px solid rgba(0,187,238,.1);display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  font-size:.66rem;color:var(--a40);}
+.lfooter a{color:var(--t2);text-decoration:none;}
+.lfooter a:hover{text-decoration:underline;}
+
+/* ══════════════════
+   EXPLORE SCREEN
+══════════════════ */
+#s-explore{}
+.srch-top{max-width:var(--max);margin:0 auto;padding:22px var(--px) 14px;}
+.srch-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-.6px;margin-bottom:3px;}
+.srch-sub{color:var(--a50,rgba(255,255,255,.5));font-size:.74rem;margin-bottom:12px;}
+
+/* SEARCH BAR WITH GEOLOC */
+.srch-wrap{position:relative;margin-bottom:10px;}
+.srch-bar{display:flex;background:rgba(0,187,238,.05);border:1.5px solid var(--a08);
+  border-radius:13px;overflow:hidden;transition:border-color .2s,box-shadow .2s;}
+.srch-bar:focus-within{border-color:rgba(0,187,238,.38);box-shadow:0 0 0 4px rgba(0,187,238,.07);}
+.srch-bar input{flex:1;padding:12px 14px;background:transparent;color:var(--white);font-size:.86rem;}
+.srch-bar input::placeholder{color:var(--a40);}
+.geo-btn{
+  display:flex;align-items:center;justify-content:center;
+  width:44px;height:44px;margin:4px 3px 4px 0;flex-shrink:0;
+  background:rgba(0,187,238,.1);border:1px solid rgba(0,187,238,.22);border-radius:10px;
+  color:var(--t2);font-size:1.1rem;transition:all .2s;cursor:pointer;
+}
+.geo-btn:hover{background:rgba(0,187,238,.2);transform:scale(1.05);}
+.geo-btn.loading{animation:geoPulse .8s ease-in-out infinite;}
+@keyframes geoPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.95)}}
+.srch-go{margin:5px 5px 5px 0;padding:9px 16px;background:linear-gradient(135deg,#0055CC,var(--t1));
+  border-radius:9px;color:#fff;font-weight:800;font-size:.78rem;transition:filter .2s;white-space:nowrap;}
+.srch-go:hover{filter:brightness(1.1);}
+/* GEOLOC INDICATOR */
+.geo-indicator{display:none;align-items:center;gap:6px;font-size:.72rem;color:var(--t2);
+  padding:6px 11px;background:rgba(0,187,238,.07);border:1px solid rgba(0,187,238,.18);
+  border-radius:8px;margin-bottom:8px;animation:fadeIn .3s ease;}
+.geo-indicator.show{display:flex;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.geo-dot{width:6px;height:6px;border-radius:50%;background:var(--t2);flex-shrink:0;animation:pl 1.4s infinite;}
+
+/* SORT CONTROLS */
+.sort-bar{max-width:var(--max);margin:0 auto 10px;padding:0 var(--px);
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.sort-label{font-size:.72rem;color:var(--a50,rgba(255,255,255,.5));font-weight:600;white-space:nowrap;}
+.sort-btn{padding:5px 12px;border-radius:50px;border:1px solid var(--a08);background:var(--a02);
+  color:var(--a60);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.sort-btn:hover{border-color:var(--ta);color:var(--t2);}
+.sort-btn.on{background:rgba(0,187,238,.1);border-color:var(--ta2);color:var(--t2);font-weight:700;}
+.sort-btn.on-gold{background:rgba(240,192,0,.1);border-color:rgba(240,192,0,.28);color:var(--plus);font-weight:700;}
+
+/* FREE ALERT */
+.free-alert{max-width:var(--max);margin:0 auto 11px;padding:0 var(--px);}
+.fa-inner{background:linear-gradient(135deg,rgba(0,196,122,.1),rgba(0,224,144,.06));
+  border:1px solid rgba(0,196,122,.22);border-radius:var(--r3);
+  padding:11px 15px;display:flex;align-items:center;gap:12px;}
+.fa-ico{font-size:1.35rem;flex-shrink:0;}
+.fa-txt strong{font-size:.84rem;font-weight:800;color:var(--g2);}
+.fa-txt p{font-size:.7rem;color:var(--a60);margin-top:1px;}
+.fa-btn{margin-left:auto;flex-shrink:0;padding:5px 11px;border-radius:50px;
+  background:rgba(0,196,122,.15);color:var(--g2);border:1px solid rgba(0,196,122,.25);
+  font-size:.68rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s;}
+.fa-btn:hover{background:rgba(0,196,122,.25);}
+
+/* CHIPS */
+.chips{max-width:var(--max);margin:0 auto 14px;padding:0 var(--px);display:flex;gap:6px;flex-wrap:wrap;}
+.chip{padding:6px 13px;border-radius:50px;border:1px solid var(--a08);background:var(--a02);
+  color:var(--a60);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.chip:hover{border-color:var(--ta);color:var(--t2);}
+.chip.on{background:rgba(0,187,238,.1);border-color:var(--ta2);color:var(--t2);font-weight:700;}
+.chip.on-g{background:rgba(0,196,122,.1);border-color:var(--ga);color:var(--g2);font-weight:700;}
+
+/* CITY TABS */
+.city-tabs{max-width:var(--max);margin:0 auto 14px;padding:0 var(--px);
+  display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;}
+.city-tabs::-webkit-scrollbar{display:none;}
+.ctab{padding:5px 12px;border-radius:50px;border:1px solid var(--a08);background:var(--a02);
+  color:var(--a50,rgba(255,255,255,.5));font-size:.7rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;}
+.ctab:hover{border-color:var(--ta);color:var(--t2);}
+.ctab.on{background:rgba(0,187,238,.08);border-color:rgba(0,187,238,.28);color:var(--t2);font-weight:700;}
+
+/* PRIORITY BADGE */
+.priority-tag{
+  position:absolute;top:7px;right:36px;z-index:3;
+  background:linear-gradient(135deg,var(--plus),var(--plus2));
+  color:var(--bg0);font-size:.55rem;font-weight:900;padding:2px 7px;border-radius:50px;
+  letter-spacing:.3px;white-space:nowrap;
+}
+
+/* GRID */
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  max-width:var(--max);margin:0 auto;padding:0 var(--px) 22px;}
+.pc{background:var(--a02);border:1px solid var(--a08);border-radius:var(--r3);overflow:hidden;cursor:pointer;
+  transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s,border-color .3s;position:relative;}
+.pc:hover{transform:translateY(-6px) scale(1.006);border-color:var(--ta);
+  box-shadow:0 18px 48px rgba(0,0,0,.45),0 0 0 1px rgba(0,187,238,.07);}
+.pc.is-free:hover{border-color:rgba(0,196,122,.28);box-shadow:0 18px 48px rgba(0,0,0,.45),0 0 0 1px rgba(0,196,122,.07);}
+.pc.is-priority{border-color:rgba(240,192,0,.2);}
+.pc.is-priority:hover{border-color:rgba(240,192,0,.4);box-shadow:0 18px 48px rgba(0,0,0,.45),0 0 0 1px rgba(240,192,0,.08);}
+.pct{height:148px;display:flex;align-items:center;justify-content:center;font-size:3.6rem;position:relative;overflow:hidden;}
+.pct::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(2,9,26,.88));}
+.pc-fav{position:absolute;top:8px;right:8px;z-index:2;width:26px;height:26px;
+  background:rgba(2,9,26,.72);backdrop-filter:blur(8px);border:1px solid var(--a08);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.76rem;transition:all .2s;}
+.pc-fav:hover{transform:scale(1.2);}
+.pc-badge-wrap{position:absolute;bottom:7px;left:7px;z-index:2;}
+.pc-dist{position:absolute;bottom:7px;right:7px;z-index:2;
+  font-size:.58rem;color:var(--t2);font-weight:700;
+  background:rgba(2,9,26,.72);backdrop-filter:blur(6px);
+  padding:2px 7px;border-radius:50px;border:1px solid rgba(0,187,238,.2);}
+.pcb{padding:12px;}
+.pc-nm{font-weight:800;font-size:.86rem;letter-spacing:-.25px;margin-bottom:2px;line-height:1.3;}
+.pc-ad{font-size:.68rem;color:var(--a40);margin-bottom:8px;}
+.pc-ft{display:flex;align-items:center;justify-content:space-between;}
+.pc-rt{display:flex;align-items:center;gap:3px;font-size:.74rem;font-weight:700;}
+.pc-rt .s{color:var(--plus);}
+.pc-pr{font-weight:800;font-size:.82rem;}
+.pc-pr.f{color:var(--g2);}
+.pc-pr.p{color:var(--t2);}
+.pc-tgs{display:flex;gap:4px;margin-top:7px;flex-wrap:wrap;}
+.pc-tg{padding:2px 7px;background:rgba(0,187,238,.05);border:1px solid rgba(0,187,238,.1);border-radius:50px;font-size:.58rem;color:var(--a60);}
+
+/* MAP */
+.mapwrap{max-width:var(--max);margin:0 auto;padding:0 var(--px) 36px;}
+.map-hd{display:flex;align-items:center;font-weight:700;font-size:.8rem;color:var(--a60);margin-bottom:8px;gap:8px;}
+.map-leg{display:flex;gap:11px;margin-left:auto;}
+.ml-i{display:flex;align-items:center;gap:4px;font-size:.64rem;color:var(--a60);}
+.mapbox{height:230px;background:linear-gradient(145deg,var(--bg2),var(--bg0));
+  border:1px solid rgba(0,187,238,.12);border-radius:var(--r3);
+  position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.mgb{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(0,187,238,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,187,238,.03) 1px,transparent 1px);
+  background-size:30px 30px;}
+.mp{position:absolute;cursor:pointer;font-size:1.35rem;transition:transform .2s;animation:mpT 2.8s ease-in-out infinite;}
+.mp:hover{transform:scale(1.4) translateY(-4px)!important;}
+.mp.t{filter:drop-shadow(0 0 5px rgba(0,187,238,.55));}
+.mp.g{filter:drop-shadow(0 0 5px rgba(0,196,122,.55));animation-name:mpG;}
+.mp.cur{filter:drop-shadow(0 0 8px rgba(0,187,238,.9));font-size:1.6rem;animation:mpCur 1.2s ease-in-out infinite;}
+@keyframes mpT{0%,100%{filter:drop-shadow(0 0 4px rgba(0,187,238,.4))}50%{filter:drop-shadow(0 0 13px rgba(0,187,238,.9))}}
+@keyframes mpG{0%,100%{filter:drop-shadow(0 0 4px rgba(0,196,122,.4))}50%{filter:drop-shadow(0 0 13px rgba(0,196,122,.9))}}
+@keyframes mpCur{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.mc-txt{z-index:1;color:rgba(255,255,255,.17);font-size:.7rem;text-align:center;}
+.my-pos{position:absolute;z-index:5;left:50%;top:50%;transform:translate(-50%,-50%);
+  background:rgba(0,187,238,.15);border:2px solid var(--t2);border-radius:50%;
+  width:20px;height:20px;display:none;}
+.my-pos.show{display:block;animation:posRing 1.5s ease-in-out infinite;}
+@keyframes posRing{0%,100%{box-shadow:0 0 0 0 rgba(0,187,238,.4)}50%{box-shadow:0 0 0 12px rgba(0,187,238,0)}}
+
+/* ══════════════════
+   DETAIL SCREEN
+══════════════════ */
+#s-detail{}
+.db{height:265px;position:relative;display:flex;align-items:center;justify-content:center;font-size:6.5rem;overflow:hidden;}
+.db::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 25%,var(--bg0));}
+.dbk{position:absolute;top:13px;left:14px;z-index:5;display:flex;align-items:center;gap:5px;
+  background:rgba(2,9,26,.8);backdrop-filter:blur(16px);border:1px solid rgba(0,187,238,.18);
+  border-radius:50px;padding:7px 14px;font-size:.74rem;font-weight:700;cursor:pointer;transition:all .2s;}
+.dbk:hover{border-color:var(--ta2);}
+.dlayout{max-width:930px;margin:0 auto;padding:0 var(--px) 56px;display:grid;grid-template-columns:1fr 285px;gap:24px;align-items:start;}
+.dn{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800;letter-spacing:-.8px;margin-bottom:5px;}
+.da{color:var(--a40);font-size:.81rem;margin-bottom:11px;}
+.dm{display:flex;align-items:center;gap:9px;margin-bottom:16px;flex-wrap:wrap;}
+.dd{color:var(--a70,rgba(255,255,255,.7));font-size:.82rem;line-height:1.88;margin-bottom:18px;}
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:18px;}
+.ar{display:flex;align-items:center;gap:7px;padding:8px 11px;
+  background:rgba(0,187,238,.04);border:1px solid rgba(0,187,238,.1);border-radius:9px;
+  font-size:.74rem;color:var(--a70,rgba(255,255,255,.7));transition:border-color .2s;}
+.ar:hover{border-color:rgba(0,187,238,.24);}
+.ar.gr{background:rgba(0,196,122,.04);border-color:rgba(0,196,122,.12);}
+.ar.gr:hover{border-color:rgba(0,196,122,.26);}
+
+/* BOOKING */
+.bk{background:var(--bg1);border:1px solid rgba(0,187,238,.16);
+  border-radius:var(--r3);padding:20px;position:sticky;top:70px;
+  box-shadow:0 20px 50px rgba(0,0,0,.35),0 0 40px rgba(0,130,200,.05);}
+.bk-price{font-family:'Syne',sans-serif;font-size:1.55rem;font-weight:800;letter-spacing:-1px;
+  background:linear-gradient(135deg,#0088EE,var(--t2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.bk-price.gf{background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;}
+.bk-price sub{font-size:.74rem;font-weight:400;color:var(--a40);-webkit-text-fill-color:var(--a40);}
+.bk-comm{font-size:.7rem;color:var(--a50,rgba(255,255,255,.5));margin-top:2px;margin-bottom:10px;}
+.bk-comm strong{color:var(--g2);}
+.free-note{background:rgba(0,196,122,.08);border:1px solid rgba(0,196,122,.2);border-radius:9px;
+  padding:9px 11px;font-size:.7rem;color:var(--g2);margin-bottom:10px;display:flex;align-items:flex-start;gap:6px;}
+.brow{display:flex;justify-content:space-between;font-size:.77rem;color:var(--a60);padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.brow:last-of-type{border-bottom:none;}
+.brow-total{color:var(--white);font-weight:700;}
+.bact{width:100%;padding:12px;border:none;border-radius:11px;font-weight:900;font-size:.86rem;margin-top:12px;cursor:pointer;transition:all .25s;}
+.bact.pay{background:linear-gradient(135deg,#0055CC,var(--t1));color:#fff;box-shadow:0 6px 18px rgba(0,130,200,.28);}
+.bact.pay:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,187,238,.45);}
+.bact.free{background:linear-gradient(135deg,#005538,var(--g1));color:var(--bg0);font-weight:900;}
+.bact.free:hover{box-shadow:0 12px 30px rgba(0,224,144,.36);}
+.bnote{text-align:center;font-size:.64rem;color:var(--a40);margin-top:6px;}
+.bk-plus-tip{background:rgba(240,192,0,.07);border:1px solid rgba(240,192,0,.18);border-radius:9px;
+  padding:9px 11px;font-size:.68rem;color:var(--plus);text-align:center;margin-top:10px;}
+.code-box{background:rgba(0,187,238,.06);border:1px solid rgba(0,187,238,.22);border-radius:10px;
+  padding:12px;text-align:center;margin-top:10px;display:none;}
+.code-box.vis{display:block;animation:sIn .3s ease;}
+.code-n{font-family:'Syne',sans-serif;font-size:2.1rem;font-weight:800;letter-spacing:6px;color:var(--t2);}
+.code-h{font-size:.62rem;color:var(--a40);margin-top:2px;}
+
+/* REVIEWS */
+.rev-s{margin-top:22px;}
+.rev-hd{font-weight:800;font-size:.92rem;margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+.rc{background:rgba(0,187,238,.03);border:1px solid var(--a08);border-radius:10px;padding:12px;margin-bottom:6px;transition:border-color .2s;}
+.rc:hover{border-color:rgba(0,187,238,.18);}
+.rca{font-weight:700;font-size:.78rem;margin-bottom:2px;display:flex;align-items:center;justify-content:space-between;gap:6px;}
+.rca-left{display:flex;align-items:center;gap:6px;}
+.rca-scores{display:flex;gap:6px;align-items:center;}
+.score-badge{display:flex;align-items:center;gap:3px;font-size:.62rem;font-weight:700;padding:2px 6px;border-radius:50px;}
+.sb-place{background:rgba(0,187,238,.1);color:var(--t2);border:1px solid rgba(0,187,238,.18);}
+.sb-user{background:rgba(240,192,0,.1);color:var(--plus);border:1px solid rgba(240,192,0,.18);}
+.rct{font-size:.74rem;color:var(--a60);line-height:1.65;}
+.rcd{font-size:.64rem;color:var(--a30,rgba(255,255,255,.3));margin-top:3px;}
+/* Global scores display */
+.scores-overview{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.score-box{background:var(--bg2);border:1px solid var(--a08);border-radius:var(--r2);padding:12px;text-align:center;}
+.score-box-val{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-1px;margin-bottom:3px;}
+.score-box-lbl{font-size:.66rem;color:var(--a50,rgba(255,255,255,.5));}
+.score-stars{display:flex;justify-content:center;gap:3px;margin-top:3px;font-size:.75rem;}
+
+/* ══════════════════
+   HOST SCREEN
+══════════════════ */
+#s-host{}
+.h-intro{max-width:780px;margin:0 auto;padding:38px var(--px) 26px;text-align:center;}
+.h-intro h1{font-family:'Syne',sans-serif;font-size:clamp(1.65rem,3.1vw,2.7rem);
+  font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:12px;}
+.h-intro p{color:var(--a70,rgba(255,255,255,.7));font-size:.92rem;line-height:1.78;max-width:490px;margin:0 auto 24px;}
+.comm-exp{max-width:var(--max);margin:0 auto 22px;padding:0 var(--px);}
+.ce-in{background:linear-gradient(135deg,rgba(0,85,200,.08),rgba(0,187,238,.05));
+  border:1px solid rgba(0,187,238,.18);border-radius:var(--r3);padding:20px 24px;}
+.ce-t{font-weight:800;font-size:.92rem;color:var(--t2);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.ce-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.ce-item{text-align:center;padding:14px 10px;background:var(--a02);border:1px solid var(--a08);border-radius:var(--r2);}
+.ce-v{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-1px;margin-bottom:3px;}
+.ce-l{font-size:.68rem;color:var(--a50,rgba(255,255,255,.5));line-height:1.4;}
+.ce-arrow{display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--a30,rgba(255,255,255,.3));}
+.dash{max-width:var(--max);margin:0 auto;padding:0 var(--px) 34px;}
+.dash-lbl{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.02rem;margin-bottom:14px;}
+.today{background:linear-gradient(135deg,rgba(0,196,122,.11),rgba(0,224,144,.06));
+  border:1px solid rgba(0,196,122,.22);border-radius:var(--r3);
+  padding:18px 20px;margin-bottom:13px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.today-l{flex:1;min-width:160px;}
+.today-tag{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--g2);margin-bottom:4px;}
+.today-v{font-family:'Syne',sans-serif;font-size:2.9rem;font-weight:800;letter-spacing:-2px;line-height:1;
+  background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.today-s{font-size:.7rem;color:var(--a60);margin-top:4px;}
+.tkpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;flex:2;}
+.tkpi{background:rgba(0,187,238,.06);border:1px solid rgba(0,187,238,.12);border-radius:var(--r2);padding:11px;text-align:center;}
+.tkpi-v{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-1px;
+  background:linear-gradient(135deg,#0080DD,var(--t3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.tkpi-l{font-size:.6rem;color:var(--a40);margin-top:2px;}
+.pout{background:var(--a02);border:1px solid rgba(240,192,0,.16);border-radius:var(--r3);
+  padding:16px 18px;margin-bottom:13px;display:flex;align-items:center;gap:13px;flex-wrap:wrap;}
+.pout-i{font-size:1.7rem;flex-shrink:0;}
+.pout-m{flex:1;}
+.pout-t{font-weight:800;font-size:.9rem;margin-bottom:3px;}
+.pout-s{font-size:.74rem;color:var(--a60);line-height:1.55;}
+.pout-r{text-align:right;flex-shrink:0;}
+.pout-rl{font-size:.63rem;color:var(--a40);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;}
+.pout-rv{font-size:.9rem;font-weight:800;color:var(--plus);}
+.pout-ra{font-size:.73rem;color:var(--g2);font-weight:600;margin-top:2px;}
+.wk{background:var(--a02);border:1px solid var(--a08);border-radius:var(--r3);padding:17px;margin-bottom:13px;}
+.wk-l{font-weight:700;font-size:.8rem;color:var(--a60);margin-bottom:11px;}
+.bars{display:flex;align-items:flex-end;gap:5px;height:65px;margin-bottom:5px;}
+.bar{flex:1;border-radius:4px 4px 0 0;min-height:4px;position:relative;cursor:pointer;transition:filter .2s;
+  background:linear-gradient(to top,#0055BB,var(--t1));}
+.bar:hover{filter:brightness(1.2);}
+.bar.tod{background:linear-gradient(to top,#005538,var(--g1));}
+.btip{position:absolute;top:-22px;left:50%;transform:translateX(-50%);
+  background:var(--bg2);border:1px solid var(--a08);border-radius:5px;
+  padding:2px 6px;font-size:.57rem;font-weight:700;white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none;}
+.bar:hover .btip{opacity:1;}
+.blabs{display:flex;gap:5px;}
+.blab{flex:1;text-align:center;font-size:.57rem;color:var(--a40);}
+.tx-box{background:var(--a02);border:1px solid var(--a08);border-radius:var(--r3);padding:17px;}
+.tx-l{font-weight:700;font-size:.8rem;color:var(--a60);margin-bottom:11px;}
+.txr{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.txr:last-child{border-bottom:none;}
+.tx-i{font-size:1.3rem;width:30px;text-align:center;}
+.tx-inf{flex:1;}
+.tx-n{font-size:.78rem;font-weight:600;margin-bottom:1px;}
+.tx-t{font-size:.64rem;color:var(--a40);}
+.tx-a{font-weight:800;font-size:.83rem;}
+.tp{color:var(--g2);}
+.tn{color:var(--a40);}
+.sim{max-width:var(--max);margin:0 auto 42px;padding:0 var(--px);}
+.sim-in{background:var(--bg1);border:1px solid rgba(0,187,238,.15);border-radius:var(--r3);padding:22px;box-shadow:0 16px 48px rgba(0,0,0,.28);}
+.sim-in h3{font-weight:700;font-size:.88rem;color:var(--a60);margin-bottom:16px;text-align:center;}
+.sim-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:11px;}
+.sim-res{background:linear-gradient(135deg,rgba(0,85,200,.1),rgba(0,187,238,.07));border:1px solid rgba(0,187,238,.2);
+  border-radius:12px;padding:13px;text-align:center;display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;}
+.sr-v{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-1px;
+  background:linear-gradient(135deg,#0088DD,var(--t3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.sr-l{font-size:.62rem;color:var(--a40);margin-top:2px;}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:var(--max);margin:0 auto;padding:0 var(--px) 44px;}
+.step{background:var(--a02);border:1px solid var(--a08);border-radius:var(--r3);padding:20px;transition:all .3s;}
+.step:hover{border-color:var(--ta);transform:translateY(-3px);}
+.step-n{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;letter-spacing:-2px;
+  background:linear-gradient(135deg,#0080DD,var(--t3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:8px;line-height:1;}
+.step h4{font-weight:800;font-size:.88rem;margin-bottom:5px;}
+.step p{font-size:.75rem;color:var(--a50,rgba(255,255,255,.5));line-height:1.68;}
+
+/* ══════════════════
+   SUGGESTIONS SCREEN
+══════════════════ */
+#s-suggest{}
+.suggest-top{max-width:var(--max);margin:0 auto;padding:28px var(--px) 20px;}
+.suggest-intro{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-.6px;margin-bottom:4px;}
+.suggest-sub{color:var(--a50,rgba(255,255,255,.5));font-size:.78rem;margin-bottom:20px;}
+.suggest-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:var(--max);margin:0 auto;padding:0 var(--px) 28px;}
+.sug-card{background:var(--a02);border:1px solid var(--a08);border-radius:var(--r3);padding:20px;
+  cursor:pointer;transition:all .3s;text-align:left;}
+.sug-card:hover{border-color:var(--ta);transform:translateY(-3px);background:rgba(0,187,238,.04);}
+.sug-card.voted{border-color:var(--ta2);background:rgba(0,187,238,.08);}
+.sug-ico{font-size:1.8rem;margin-bottom:10px;}
+.sug-title{font-weight:800;font-size:.9rem;margin-bottom:5px;}
+.sug-desc{font-size:.76rem;color:var(--a60);line-height:1.65;margin-bottom:12px;}
+.sug-vote{display:flex;align-items:center;gap:8px;}
+.vote-btn{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:50px;
+  font-size:.72rem;font-weight:700;transition:all .2s;cursor:pointer;border:none;}
+.vote-up{background:rgba(0,187,238,.1);color:var(--t2);border:1px solid rgba(0,187,238,.22);}
+.vote-up:hover,.vote-up.voted{background:rgba(0,187,238,.22);border-color:var(--ta2);}
+.vote-count{font-size:.72rem;color:var(--a50,rgba(255,255,255,.5));}
+.sug-new{max-width:var(--max);margin:0 auto;padding:0 var(--px) 30px;}
+.sug-new-box{background:var(--bg1);border:1px solid rgba(0,187,238,.15);border-radius:var(--r3);padding:22px;}
+.sug-new-box h3{font-weight:800;font-size:.92rem;margin-bottom:14px;}
+
+/* PROFILE SCREEN */
+#s-profile{}
+.prof-top{max-width:900px;margin:0 auto;padding:26px var(--px) 0;}
+.prof-banner{background:linear-gradient(135deg,rgba(0,85,200,.09),rgba(0,187,238,.05));
+  border:1px solid rgba(0,187,238,.14);border-radius:var(--r3);
+  padding:22px;display:flex;align-items:center;gap:16px;margin-bottom:16px;}
+.pav{width:62px;height:62px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,#0055CC,var(--t1));
+  display:flex;align-items:center;justify-content:center;font-size:1.65rem;
+  border:3px solid rgba(0,187,238,.25);box-shadow:0 0 22px rgba(0,187,238,.15);}
+.pnm{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:800;letter-spacing:-.4px;}
+.pmt{font-size:.72rem;color:var(--a40);margin:3px 0 8px;}
+.ppls{display:flex;gap:5px;flex-wrap:wrap;}
+.pgrid{max-width:900px;margin:0 auto;padding:0 var(--px) 78px;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.pcard{background:var(--a02);border:1px solid var(--a08);border-radius:var(--r3);padding:17px;transition:border-color .2s;}
+.pcard:hover{border-color:rgba(0,187,238,.12);}
+.pcard h3{font-weight:800;font-size:.83rem;color:var(--a60);margin-bottom:10px;}
+.bki{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.bki:last-child{border-bottom:none;}
+.bk-ic{font-size:1.3rem;}
+.bk-if strong{font-size:.78rem;display:block;margin-bottom:1px;}
+.bk-if span{font-size:.66rem;color:var(--a40);}
+.smg{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.sm{text-align:center;padding:10px 0;}
+.sm-v{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;letter-spacing:-1px;}
+.sm-l{font-size:.64rem;color:var(--a40);margin-top:1px;}
+.slist{display:flex;flex-direction:column;gap:6px;}
+.sb{padding:9px 11px;background:rgba(0,187,238,.04);border:1px solid var(--a08);border-radius:10px;
+  text-align:left;font-size:.77rem;color:var(--a60);font-weight:500;transition:all .2s;
+  display:flex;align-items:center;gap:7px;}
+.sb:hover{border-color:rgba(0,187,238,.2);color:var(--white);background:rgba(0,187,238,.07);}
+.sb.dng{color:rgba(255,58,92,.7);}
+.sb.dng:hover{border-color:rgba(255,58,92,.25);background:rgba(255,58,92,.06);color:#ff6060;}
+.pay-it{display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--a08);border-radius:9px;margin-bottom:6px;transition:border-color .2s;}
+.pay-it:hover{border-color:var(--ta);}
+.pay-add{margin-left:auto;padding:4px 10px;border-radius:50px;border:1px solid var(--ta);background:transparent;color:var(--t2);cursor:pointer;font-size:.65rem;font-weight:700;transition:all .2s;}
+.pay-add:hover{background:rgba(0,187,238,.1);}
+.pay-on{margin-left:auto;padding:3px 8px;border-radius:50px;font-size:.63rem;font-weight:700;background:rgba(0,196,122,.1);color:var(--g2);border:1px solid rgba(0,196,122,.2);}
+
+/* RESPONSIVE */
+@media(max-width:800px){
+  .hero{grid-template-columns:1fr;padding:38px var(--px) 24px;min-height:auto;}
+  .phone-scene{display:none;}
+  .h1{font-size:2.05rem;}
+  .home-stats{grid-template-columns:1fr 1fr;}
+  .si{border-right:none;border-bottom:1px solid rgba(0,187,238,.12);}
+  .pg{grid-template-columns:1fr 1fr;}
+  .how,.steps,.sim-row,.sim-res,.ce-row{grid-template-columns:1fr;}
+  .ce-arrow{transform:rotate(90deg);}
+  .dlayout{grid-template-columns:1fr;}
+  .bk{position:static;}
+  .today{flex-direction:column;}
+  .tkpis{grid-template-columns:1fr 1fr;}
+  .pgrid,.suggest-grid,.price-grid{grid-template-columns:1fr;}
+  .trust{gap:20px;}
+  .nav-r .nb-g{display:none;}
+}
+@media(max-width:480px){
+  .pg{grid-template-columns:1fr;}
+  .h1{font-size:1.8rem;}
+  .home-stats{grid-template-columns:1fr;}
+}
+
+/* ════════════════════════════
+   PHOTOS HÔTE — 3 images
+════════════════════════════ */
+.photo-upload-zone{margin-bottom:14px;}
+.photo-upload-title{font-size:.72rem;font-weight:700;color:var(--a50,rgba(255,255,255,.5));
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.photo-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.photo-slot{
+  aspect-ratio:1/1;border-radius:var(--r2);overflow:hidden;position:relative;
+  background:var(--a03);border:2px dashed rgba(0,187,238,.25);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .3s;
+}
+.photo-slot:hover{border-color:var(--ta2);background:rgba(0,187,238,.06);}
+.photo-slot.has-photo{border-style:solid;border-color:rgba(0,187,238,.3);}
+.photo-slot.has-photo:hover{border-color:var(--ta2);}
+.photo-slot img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:calc(var(--r2) - 2px);}
+.photo-slot-overlay{
+  position:absolute;inset:0;background:rgba(0,0,0,.55);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  opacity:0;transition:opacity .2s;border-radius:calc(var(--r2) - 2px);
+}
+.photo-slot.has-photo:hover .photo-slot-overlay{opacity:1;}
+.photo-slot-ico{font-size:1.6rem;}
+.photo-slot-lbl{font-size:.62rem;color:rgba(255,255,255,.7);font-weight:600;}
+.photo-slot-num{
+  position:absolute;top:6px;left:6px;z-index:3;
+  width:20px;height:20px;border-radius:50%;
+  background:rgba(0,187,238,.85);color:#fff;
+  font-size:.58rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+}
+.photo-slot-del{
+  position:absolute;top:5px;right:5px;z-index:3;
+  width:20px;height:20px;border-radius:50%;background:rgba(231,76,60,.85);
+  color:#fff;font-size:.65rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .2s;display:none;
+}
+.photo-slot.has-photo .photo-slot-del{display:flex;}
+.photo-slot-del:hover{background:rgba(231,76,60,1);transform:scale(1.1);}
+
+/* GALERIE sur fiche détail */
+.place-gallery{position:relative;overflow:hidden;}
+.gallery-main{width:100%;height:260px;object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:6rem;background:linear-gradient(145deg,var(--bg2),var(--bg0));position:relative;}
+.gallery-main img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.gallery-main-emoji{position:relative;z-index:1;}
+.gallery-thumbs{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:3px;}
+.gallery-thumb{height:100px;overflow:hidden;position:relative;background:var(--bg2);display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.gallery-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s;}
+.gallery-thumb:hover img{transform:scale(1.05);}
+.gallery-count{position:absolute;inset:0;background:rgba(2,9,26,.65);display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:800;color:#fff;}
+.gallery-all-btn{position:absolute;bottom:10px;right:10px;z-index:5;
+  padding:6px 13px;background:rgba(2,9,26,.8);backdrop-filter:blur(8px);
+  border:1px solid rgba(0,187,238,.25);border-radius:50px;
+  font-size:.68rem;font-weight:700;color:var(--t2);cursor:pointer;transition:all .2s;}
+.gallery-all-btn:hover{background:rgba(0,187,238,.15);}
+
+/* Carrousel modal photos */
+.photo-viewer{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:800;
+  flex-direction:column;align-items:center;justify-content:center;
+}
+.photo-viewer.open{display:flex;}
+.pv-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;}
+.pv-img-wrap{width:90vw;max-width:500px;aspect-ratio:1/1;border-radius:var(--r3);overflow:hidden;margin-bottom:16px;}
+.pv-img-wrap img,.pv-img-wrap .pv-emoji{width:100%;height:100%;object-fit:cover;
+  display:flex;align-items:center;justify-content:center;font-size:8rem;background:var(--bg2);}
+.pv-nav{display:flex;align-items:center;gap:20px;}
+.pv-arr{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);color:#fff;font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;}
+.pv-arr:hover{background:rgba(0,187,238,.25);border-color:var(--ta2);}
+.pv-dots{display:flex;gap:8px;}
+.pv-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:all .2s;}
+.pv-dot.on{background:var(--t2);width:24px;border-radius:4px;}
+
+/* Sur les cards explore */
+.pc-photos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;height:120px;overflow:hidden;border-radius:var(--r3) var(--r3) 0 0;}
+.pc-photo-main{grid-column:1/3;height:120px;overflow:hidden;position:relative;background:var(--bg2);display:flex;align-items:center;justify-content:center;}
+.pc-photo-main img{width:100%;height:100%;object-fit:cover;}
+.pc-photo-side{display:flex;flex-direction:column;gap:2px;}
+.pc-photo-sm{flex:1;overflow:hidden;position:relative;background:var(--bg3);display:flex;align-items:center;justify-content:center;}
+.pc-photo-sm img{width:100%;height:100%;object-fit:cover;}
+.pc-photo-sm.more{background:rgba(0,187,238,.1);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:var(--t2);}
+
+</style>
+</head>
+<body>
+<div id="bg"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="logo" onclick="go('home')">
+    <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg" style="border-radius:8px">
+  <rect width="31" height="31" rx="8" fill="url(#lg)"/>
+  <defs><linearGradient id="lg" x1="0" y1="0" x2="31" y2="31"><stop offset="0%" stop-color="#0055DD"/><stop offset="100%" stop-color="#00BBEE"/></linearGradient></defs>
+  <path d="M15.5 4C12.5 4 10 6.5 10 9.5C10 13.5 15.5 20 15.5 20C15.5 20 21 13.5 21 9.5C21 6.5 18.5 4 15.5 4Z" fill="white" fill-opacity="0.9"/>
+  <rect x="13" y="7" width="5" height="6" rx="0.5" fill="#0044CC"/>
+  <rect x="14.5" y="7" width="2" height="6" rx="0.3" fill="white" fill-opacity="0.95"/>
+  <circle cx="17" cy="10" r="0.6" fill="#0044CC"/>
+  <ellipse cx="15.5" cy="20.5" rx="3" ry="0.8" fill="white" fill-opacity="0.25"/>
+  <text x="15.5" y="27.5" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="5.5" fill="white">GoWc</text>
+</svg>
+    <div class="logo-name">
+      <span class="logo-base"><b>Go</b><span style="color:var(--t1)">Wc</span></span>
+      <span class="logo-plus-pill">+</span>
+    </div>
+  </div>
+  <div class="nav-r">
+    <button class="nb nb-g"    onclick="go('suggest')">💡 Suggestions</button>
+    <button class="nb nb-g"    onclick="go('host')">Espace hôte</button>
+    <button class="nb nb-plus" onclick="openM('plus')">⭐ GoWc+</button>
+    <button class="nb nb-t"    onclick="openM('auth')">Commencer</button>
+  </div>
+</nav>
+
+<!-- ══════════ HOME ══════════ -->
+<div id="s-home" class="screen show">
+  <div class="hero">
+    <div>
+      <div class="eyebrow hero-tag"><div class="pulse"></div>Tout le Nord (59) · 650+ communes</div>
+      <h1 class="h1">Des sanitaires <span class="grad">propres &amp; fiables</span> partout dans le Nord</h1>
+      <p class="hero-sub">GoWc référence <strong>520 lieux</strong> dans tout le département du Nord. Sanitaires publics gratuits et hôtes privés vérifiés. Géolocalisation automatique, réservation en 60 secondes. <strong>2,00 € la visite.</strong></p>
+      <div class="hero-ctas">
+        <button class="btn btn-t"    onclick="go('explore')">🔍 Trouver des sanitaires</button>
+        <button class="btn btn-plus" onclick="openM('plus')">⭐ GoWc+</button>
+        <button class="btn btn-o"    onclick="go('host')">💶 Devenir hôte</button>
+      </div>
+      <div class="hero-proof">
+        <div class="pfs"><div class="pf">😊</div><div class="pf">👩</div><div class="pf">🧑</div><div class="pf">👴</div></div>
+        <span>Rejoignez <strong>12 000+</strong> utilisateurs dans le Nord</span>
+      </div>
+    </div>
+    <div class="phone-scene">
+      <div class="fb fb-a"><span class="fb-v" style="color:var(--t2)">520</span>lieux Nord (59)</div>
+      <div class="pframe">
+        <div class="pnotch"></div>
+        <div class="pscr">
+          <div class="ph"><span class="ph-logo"><b>Go</b><span style="color:var(--t1)">Wc</span></span><span class="ph-city">📍 Lille · Nord</span></div>
+          <div class="ph-search">📍 Ma position détectée<span class="ph-loc-btn">↺ Relancer</span></div>
+          <!-- PAID first (priorité) -->
+          <div class="ph-row-wrap">
+            <div class="ph-row rp"><div class="ph-ico">☕</div><div><div class="ph-nm">Café Méo — Vieux-Lille</div><div class="ph-in">★ 4.9 · 120m · Prioritaire</div></div><div class="ph-b pb-p">1,99€</div></div>
+            <div class="ph-priority">⭐</div>
+          </div>
+          <div class="ph-row-wrap">
+            <div class="ph-row rp2"><div class="ph-ico">🏨</div><div><div class="ph-nm">Hôtel Barrière</div><div class="ph-in">★ 5.0 · 280m · Prioritaire</div></div><div class="ph-b pb-p">1,99€</div></div>
+            <div class="ph-priority">⭐</div>
+          </div>
+          <!-- FREE after -->
+          <div class="ph-row rg"><div class="ph-ico">🏛️</div><div><div class="ph-nm">Mairie de Lille</div><div class="ph-in">★ 4.5 · 350m · Public</div></div><div class="ph-b pb-f">Gratuit</div></div>
+          <div class="ph-row rg2"><div class="ph-ico">🌳</div><div><div class="ph-nm">Parc J-B Lebas</div><div class="ph-in">★ 4.1 · 480m · Public</div></div><div class="ph-b pb-f">Gratuit</div></div>
+        </div>
+      </div>
+      <div class="fb fb-b"><span class="fb-v" style="color:var(--g2)">180</span>gratuits</div>
+      <div class="fb fb-c"><span class="fb-v" style="color:var(--plus)">1,50€</span>net/hôte</div>
+    </div>
+  </div>
+
+  <div class="home-stats">
+    <div class="si"><div class="sv">520</div><div class="sl">Lieux Nord (59)</div></div>
+    <div class="si"><div class="sv" style="background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">180</div><div class="sl">🆓 Sanitaires gratuits</div></div>
+    <div class="si"><div class="sv">1,99 €</div><div class="sl">Prix par visite</div></div>
+    <div class="si"><div class="sv">&lt; 60s</div><div class="sl">Temps de réservation</div></div>
+  </div>
+
+  <div class="trust">
+    <div class="ti"><span>📍</span><span><strong>Géolocalisation</strong> automatique</span></div>
+    <div class="ti"><span>⭐</span><span><strong>Double notation</strong> lieu + usager</span></div>
+    <div class="ti"><span>🔒</span><span>Paiement <strong>Stripe</strong> sécurisé</span></div>
+    <div class="ti"><span>💳</span><span>Virement <strong>chaque lundi</strong></span></div>
+    <div class="ti"><span>♿</span><span><strong>PMR certifié</strong> inclusif</span></div>
+    <div class="ti"><span>💡</span><span><strong>Suggestions</strong> communautaires</span></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h">Comment ça marche ?</div>
+    <div class="sec-s">Simple · Rapide · Sécurisé</div>
+    <div class="how">
+      <div class="hc"><div class="hn">01</div><h4>Géolocalisation auto</h4><p>Ouvrez l'app — votre position est détectée instantanément. Les sanitaires payants premium s'affichent en priorité, les gratuits suivent.</p></div>
+      <div class="hc"><div class="hn">02</div><h4>Réservez en 60 secondes</h4><p>Gratuit → accès direct. Premium → 2,00 € via Stripe, Apple Pay, Google Pay. Code SMS sécurisé envoyé en 5 secondes.</p></div>
+      <div class="hc"><div class="hn">03</div><h4>Double notation</h4><p>Après chaque visite, notez le lieu ET laissez une note à l'usager. Qualité garantie des deux côtés.</p></div>
+    </div>
+  </div>
+
+  <div class="sec" style="padding-top:0">
+    <div class="sec-h">GoWc vs GoWc+</div>
+    <div class="sec-s">Choisissez votre formule</div>
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="pc-label" style="color:var(--t2)">🚿 GoWc — Gratuit</div>
+        <div class="pc-price grad">0 €</div>
+        <div class="pc-per">inscription gratuite</div>
+        <div class="pcf"><span>✅</span><span>Accès aux 180 sanitaires publics gratuits</span></div>
+        <div class="pcf"><span>✅</span><span>Géolocalisation automatique</span></div>
+        <div class="pcf"><span>✅</span><span>Réservation lieux premium : 2,00 € + 0,50 € frais</span></div>
+        <div class="pcf"><span>✅</span><span>Double notation lieu & usager</span></div>
+        <div class="pcf"><span>✅</span><span>Suggestions d'amélioration</span></div>
+        <button class="btn btn-t btn-sm" style="width:100%;margin-top:14px;justify-content:center" onclick="openM('auth')">Commencer gratuitement</button>
+      </div>
+      <div class="price-card plus">
+        <div class="pc-label" style="color:var(--plus)">⭐ GoWc+ — Premium</div>
+        <div class="pc-price grad-plus">9,99 €</div>
+        <div class="pc-per">/ mois · sans engagement</div>
+        <div class="pcf"><span style="color:var(--plus)">⭐</span><span><strong>Accès illimité</strong> — plus de 2€ par visite</span></div>
+        <div class="pcf"><span style="color:var(--plus)">⭐</span><span><strong>Frais de service offerts</strong> (0,50€ économisé)</span></div>
+        <div class="pcf"><span style="color:var(--plus)">⭐</span><span>Priorité d'accès aux lieux populaires</span></div>
+        <div class="pcf"><span style="color:var(--plus)">⭐</span><span>Lieux exclusifs partenaires</span></div>
+        <div class="pcf"><span style="color:var(--plus)">⭐</span><span>Support prioritaire 7j/7</span></div>
+        <button class="btn btn-plus btn-sm" style="width:100%;margin-top:14px;justify-content:center" onclick="openM('plus')">S'abonner — 9,99€/mois</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="lfooter">
+    <span>© 2025 GoWc · Nord (59) · France</span>
+    <a href="#" onclick="openM('cgu')">CGU</a>
+    <a href="#" onclick="openM('privacy')">Confidentialité</a>
+    <a href="#" onclick="openM('legal')">Mentions légales</a>
+    <a href="mailto:contact@gowc.fr">contact@gowc.fr</a>
+  </div>
+</div>
+
+<!-- ══════════ EXPLORE ══════════ -->
+<div id="s-explore" class="screen">
+  <div class="srch-top">
+    <div class="srch-title">Explorer le Nord (59) 🗺️</div>
+    <div class="srch-sub">Lille · Roubaix · Tourcoing · Valenciennes · Dunkerque · Douai · Cambrai · Maubeuge · 650+ communes</div>
+    <div class="srch-wrap">
+      <div class="srch-bar">
+        <input type="text" id="sInput" placeholder="Ville, adresse, lieu… ou cliquez 📍">
+        <button class="geo-btn" id="geoBtn" onclick="doGeolocate()" title="Géolocaliser ma position">📍</button>
+        <button class="srch-go" onclick="renderGrid()">Rechercher</button>
+      </div>
+    </div>
+    <!-- GEOLOC INDICATOR -->
+    <div class="geo-indicator" id="geoIndicator">
+      <div class="geo-dot"></div>
+      <span id="geoText">Géolocalisation en cours…</span>
+    </div>
+  </div>
+
+  <!-- SORT BAR -->
+  <div class="sort-bar">
+    <span class="sort-label">Trier par :</span>
+    <button class="sort-btn on-gold" id="sort-priority" onclick="setSort(this,'priority')">⭐ Payants en priorité</button>
+    <button class="sort-btn" id="sort-distance" onclick="setSort(this,'distance')">📍 Distance</button>
+    <button class="sort-btn" id="sort-rating" onclick="setSort(this,'rating')">★ Meilleures notes</button>
+    <button class="sort-btn" id="sort-all" onclick="setSort(this,'all')">📋 Tous</button>
+  </div>
+
+  <div class="free-alert">
+    <div class="fa-inner">
+      <div class="fa-ico">🆓</div>
+      <div class="fa-txt">
+        <strong>180 sanitaires publics gratuits dans le Nord (59)</strong>
+        <p>Parcs, mairies, gares, musées — aucun paiement requis.</p>
+      </div>
+      <div class="fa-btn" onclick="filterGo(document.querySelector('[data-f=gratuit]'),'gratuit')">Voir tous →</div>
+    </div>
+  </div>
+
+  <div class="chips">
+    <button class="chip on" data-f="all"      onclick="filterGo(this,'all')">Tout voir</button>
+    <button class="chip"    data-f="gratuit"  onclick="filterGo(this,'gratuit')">🆓 Gratuits</button>
+    <button class="chip"    data-f="payant"   onclick="filterGo(this,'payant')">💶 1,99 €</button>
+    <button class="chip"    data-f="pmr"      onclick="filterGo(this,'pmr')">♿ PMR</button>
+    <button class="chip"    data-f="bebe"     onclick="filterGo(this,'bebe')">👶 Bébé</button>
+    <button class="chip"    data-f="douche"   onclick="filterGo(this,'douche')">🚿 Douche</button>
+    <button class="chip"    data-f="ouvert24" onclick="filterGo(this,'ouvert24')">🌙 24h/24</button>
+    <button class="chip"    data-f="metro"    onclick="filterGo(this,'metro')">🚇 Transports</button>
+  </div>
+
+  <div class="city-tabs">
+    <button class="ctab on" onclick="setCityFilter(this,'')">Tout le Nord</button>
+    <button class="ctab" onclick="setCityFilter(this,'Lille')">Lille</button>
+    <button class="ctab" onclick="setCityFilter(this,'Roubaix')">Roubaix</button>
+    <button class="ctab" onclick="setCityFilter(this,'Tourcoing')">Tourcoing</button>
+    <button class="ctab" onclick="setCityFilter(this,'Valenciennes')">Valenciennes</button>
+    <button class="ctab" onclick="setCityFilter(this,'Dunkerque')">Dunkerque</button>
+    <button class="ctab" onclick="setCityFilter(this,'Douai')">Douai</button>
+    <button class="ctab" onclick="setCityFilter(this,'Cambrai')">Cambrai</button>
+    <button class="ctab" onclick="setCityFilter(this,'Maubeuge')">Maubeuge</button>
+  </div>
+
+  <div class="pg" id="grid"></div>
+
+  <div class="mapwrap">
+    <div class="map-hd">
+      📍 Carte — Nord (59)
+      <div class="map-leg">
+        <div class="ml-i"><span style="color:var(--plus)">📍</span>Premium prioritaire</div>
+        <div class="ml-i"><span style="color:var(--g2)">📍</span>Gratuit</div>
+        <div class="ml-i"><span style="color:var(--t2)">🔵</span>Ma position</div>
+      </div>
+    </div>
+    <div class="mapbox">
+      <div class="mgb"></div>
+      <div class="mc-txt">Carte interactive · Nord (59) · Google Maps API prête</div>
+      <div class="my-pos" id="myPos"></div>
+      <!-- PAID FIRST sur la carte -->
+      <div class="mp t" style="left:22%;top:35%;animation-delay:.2s" onclick="goDetail(0)">📍</div>
+      <div class="mp t" style="left:44%;top:46%;animation-delay:.4s" onclick="goDetail(1)">📍</div>
+      <div class="mp t" style="left:62%;top:26%;animation-delay:.9s" onclick="goDetail(2)">📍</div>
+      <div class="mp t" style="left:35%;top:65%;animation-delay:.6s" onclick="goDetail(4)">📍</div>
+      <div class="mp t" style="left:72%;top:38%;animation-delay:.3s" onclick="goDetail(7)">📍</div>
+      <div class="mp t" style="left:82%;top:55%;animation-delay:.7s" onclick="goDetail(8)">📍</div>
+      <!-- FREE -->
+      <div class="mp g" style="left:28%;top:27%;animation-delay:.5s" onclick="goDetail(9)">📍</div>
+      <div class="mp g" style="left:48%;top:55%;animation-delay:.8s" onclick="goDetail(10)">📍</div>
+      <div class="mp g" style="left:15%;top:52%;animation-delay:1.1s" onclick="goDetail(12)">📍</div>
+      <div class="mp g" style="left:66%;top:68%;animation-delay:.65s" onclick="goDetail(11)">📍</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ DETAIL ══════════ -->
+<div id="s-detail" class="screen">
+  <!-- GALERIE DETAIL -->
+  <div class="place-gallery" id="placeGallery">
+    <div class="gallery-main" id="dBanner">
+      <button class="dbk" onclick="go('explore')">← Retour</button>
+      <div class="d-actions">
+        <div class="d-act-btn" id="dFav" onclick="toggleFav()">🤍</div>
+        <div class="d-act-btn" onclick="toast('🔗 Lien copié !')">🔗</div>
+      </div>
+      <span id="dEmoji" class="gallery-main-emoji">🚽</span>
+    </div>
+    <div class="gallery-thumbs" id="galleryThumbs"></div>
+    <button class="gallery-all-btn" id="galleryAllBtn" onclick="openPhotoViewer(curP&&curP.id,0)" style="display:none">📸 Voir les 3 photos</button>
+  </div>
+  <div class="dlayout">
+    <div>
+      <div id="dBadges" style="margin-bottom:9px"></div>
+      <h1 class="dn" id="dName"></h1>
+      <p class="da" id="dAddr"></p>
+      <div class="dm" id="dMeta"></div>
+
+      <!-- SCORES OVERVIEW -->
+      <div class="scores-overview" id="dScores"></div>
+
+      <p class="dd" id="dDesc"></p>
+      <h3 style="font-weight:700;font-size:.72rem;color:var(--a50,rgba(255,255,255,.5));text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Équipements</h3>
+      <div class="ag" id="dAmen"></div>
+
+      <div class="rev-s">
+        <div class="rev-hd">
+          ⭐ Avis vérifiés
+          <span id="dRevCnt" style="font-weight:400;font-size:.72rem;color:var(--a40)"></span>
+        </div>
+        <div id="dRevs"></div>
+        <button class="btn btn-o btn-sm" style="margin-top:9px" onclick="openM('review')">✍️ Laisser un avis</button>
+      </div>
+    </div>
+    <div>
+      <div class="bk">
+        <div id="bFreeNote"></div>
+        <div class="bk-price" id="bPrice">1,99 € <sub>/ visite</sub></div>
+        <div class="bk-comm" id="bComm"></div>
+        <div class="brow"><span>⏰ Horaires</span><span id="bHours"></span></div>
+        <div class="brow"><span>⏱️ Durée max</span><span>20 min</span></div>
+        <div class="brow" id="bFeeRow"><span>Visite</span><span>1,99 €</span></div>
+        <div class="brow" id="bSvcRow" style="display:none"><span>Frais service</span><span>0,50 €</span></div>
+        <div class="brow brow-total"><span>Total</span><span id="bTotal"></span></div>
+        <button class="bact pay" id="bBtn" onclick="doBook()">⚡ Réserver — 1,99 €</button>
+        <p class="bnote" id="bNote">🔒 Stripe · Code valable 1 heure</p>
+        <div class="bk-plus-tip">⭐ <strong>GoWc+</strong> — Accès illimité pour <strong>9,99€/mois</strong> · <a href="#" style="color:var(--plus)" onclick="openM('plus')">S'abonner</a></div>
+        <div class="code-box" id="codeBox">
+          <div style="font-size:.63rem;color:var(--g2);font-weight:700;margin-bottom:8px">✅ Paiement confirmé — QR Code généré</div>
+          <div class="code-n" id="codeNum">—</div>
+          <div style="margin:12px auto 4px;display:flex;justify-content:center">
+            <div id="qrContainer" style="padding:10px;background:#fff;border-radius:12px;border:2px solid rgba(0,187,238,.3)"></div>
+          </div>
+          <div style="font-size:.63rem;color:var(--a50);margin-top:5px">📷 Montrez ce QR code à l'hôte pour accéder</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px">
+            <span style="font-size:.7rem;color:var(--a50)">Expire dans</span>
+            <span id="qrCountdown" style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:var(--t2)">30:00</span>
+          </div>
+          <div style="height:5px;background:var(--a08);border-radius:50px;overflow:hidden;margin-top:6px">
+            <div id="qrTimerBar" style="height:100%;width:100%;background:linear-gradient(90deg,var(--t1),var(--t2));border-radius:50px;transition:width 1s linear"></div>
+          </div>
+          <button onclick="go('scanner')" style="width:100%;margin-top:12px;padding:9px;border-radius:50px;background:rgba(0,187,238,.1);border:1px solid rgba(0,187,238,.25);color:var(--t2);font-weight:700;font-size:.74rem;cursor:pointer">📷 Mode hôte — Scanner un QR code</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ HOST ══════════ -->
+<div id="s-host" class="screen">
+  <div class="h-intro">
+    <div class="eyebrow" style="margin:0 auto 15px;display:inline-flex;"><div class="pulse"></div>Espace hôte · Nord (59)</div>
+    <h1>Vos sanitaires rapportent <span class="grad">1,49 € net</span> par visite</h1>
+    <p>Chaque visite est à <strong style="color:var(--white)">1,99 €</strong>. Vous recevez <strong style="color:var(--g2)">1,49 € net</strong>. GoWc prend <strong style="color:var(--t2)">0,50 €</strong>. Virement automatique <strong style="color:var(--plus)">chaque lundi</strong> sur votre IBAN.</p>
+    <button class="btn btn-t" onclick="openM('addPlace')">🚽 Inscrire mes sanitaires</button>
+  </div>
+  <div class="comm-exp">
+    <div class="ce-in">
+      <div class="ce-t">💡 Répartition transparente — par visite</div>
+      <div class="ce-row">
+        <div class="ce-item"><div class="ce-v" style="color:var(--white)">1,99 €</div><div class="ce-l">Prix payé par<br>l'utilisateur</div></div>
+        <div class="ce-arrow">→</div>
+        <div class="ce-item"><div class="ce-v grad-g">1,49 €</div><div class="ce-l">Vous recevez<br>(hôte)</div></div>
+        <div class="ce-arrow">+</div>
+        <div class="ce-item"><div class="ce-v" style="color:var(--t2)">0,50 €</div><div class="ce-l">Commission<br><b>Go</b><span style="color:var(--t1)">Wc</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="dash">
+    <div class="dash-lbl"><div class="pulse"></div>Tableau de bord — Café Méo (Noé D.)</div>
+    <div class="today">
+      <div class="today-l">
+        <div class="today-tag">💶 Gains aujourd'hui</div>
+        <div class="today-v">21,99 €</div>
+        <div class="today-s">15 visites × 1,49 € net · lundi 14 avr. 2025</div>
+      </div>
+      <div class="tkpis">
+        <div class="tkpi"><div class="tkpi-v">15</div><div class="tkpi-l">Visites auj.</div></div>
+        <div class="tkpi"><div class="tkpi-v">112€</div><div class="tkpi-l">Cette semaine</div></div>
+        <div class="tkpi"><div class="tkpi-v">375€</div><div class="tkpi-l">Ce mois (estimé)</div></div>
+      </div>
+    </div>
+    <div class="pout">
+      <div class="pout-i">💳</div>
+      <div class="pout-m">
+        <div class="pout-t">Virement automatique chaque lundi matin</div>
+        <div class="pout-s">Vos gains nets (1,49 € × visites) virés chaque lundi sur votre IBAN. Zéro démarche, zéro paperasse.</div>
+      </div>
+      <div class="pout-r">
+        <div class="pout-rl">Prochain virement</div>
+        <div class="pout-rv">Lundi 21 avr.</div>
+        <div class="pout-ra">≈ 111,99 € nets</div>
+      </div>
+    </div>
+    <div class="wk">
+      <div class="wk-l">📊 Revenus nets (1,49 €/visite) — 7 derniers jours</div>
+      <div class="bars" id="bars"></div>
+      <div class="blabs" id="blabs"></div>
+    </div>
+    <div class="tx-box">
+      <div class="tx-l">🧾 Dernières transactions</div>
+      <div id="txList"></div>
+    </div>
+  </div>
+  <div class="sim">
+    <div class="sim-in">
+      <h3>💶 Simulateur de revenus (1,49 € net / visite — fixe)</h3>
+      <div class="sim-row">
+        <div><label class="fl">Visites / jour</label><input class="fi" type="number" id="sV" value="10" min="1" max="200" oninput="calcSim()"></div>
+        <div><label class="fl">Jours / semaine</label>
+          <select class="fi" id="sD" onchange="calcSim()">
+            <option value="5">5 jours</option><option value="6">6 jours</option><option value="7" selected>7 jours</option>
+          </select>
+        </div>
+        <div style="display:flex;align-items:flex-end">
+          <div style="background:rgba(0,196,122,.08);border:1px solid rgba(0,196,122,.18);border-radius:11px;padding:11px;width:100%;text-align:center;">
+            <div style="font-size:.64rem;color:var(--a50,rgba(255,255,255,.5));margin-bottom:3px">Revenu net / visite</div>
+            <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--g2)">1,49 €</div>
+            <div style="font-size:.6rem;color:var(--a40)">Garanti · Fixe</div>
+          </div>
+        </div>
+      </div>
+      <div class="sim-res">
+        <div><div class="sr-v" id="srW">—</div><div class="sr-l">/ semaine</div></div>
+        <div><div class="sr-v" id="srM">—</div><div class="sr-l">/ mois</div></div>
+        <div><div class="sr-v" id="srY">—</div><div class="sr-l">/ an</div></div>
+      </div>
+      <p style="text-align:center;font-size:.67rem;color:var(--a40);margin-top:8px;">1,49 € net · Virement automatique chaque lundi · Prix utilisateur : 1,99 €</p>
+    </div>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-n">01</div><h4>Créez votre annonce</h4><p>Photos, équipements, horaires. Prix fixe : 2,00 €/visite. Inscription gratuite. Validation sous 24h.</p></div>
+    <div class="step"><div class="step-n">02</div><h4>Accueillez & notez</h4><p>Réservations reçues. Code SMS validé. Vous pouvez noter l'usager après chaque visite.</p></div>
+    <div class="step"><div class="step-n">03</div><h4>1,49 € net / visite</h4><p>Virement automatique chaque lundi sur votre IBAN. Aucune démarche requise.</p></div>
+  </div>
+</div>
+
+<!-- ══════════ SUGGESTIONS ══════════ -->
+<div id="s-suggest" class="screen">
+  <div class="suggest-top">
+    <div class="eyebrow" style="margin-bottom:14px"><div class="pulse"></div>Communauté · Nord (59)</div>
+    <div class="suggest-intro">💡 Idées d'amélioration</div>
+    <div class="suggest-sub">Votez pour les fonctionnalités que vous souhaitez voir dans GoWc. Vos votes guident notre développement.</div>
+  </div>
+
+  <div class="suggest-grid" id="suggestGrid"></div>
+
+  <div class="sug-new">
+    <div class="sug-new-box">
+      <h3>✍️ Proposer une nouvelle idée</h3>
+      <div class="fg"><label class="fl">Votre idée en quelques mots</label><input class="fi" id="sugTitle" placeholder="Ex : Ajouter une carte hors-ligne…"></div>
+      <div class="fg"><label class="fl">Description (optionnel)</label><textarea class="fi" id="sugDesc" rows="3" placeholder="Expliquez pourquoi ce serait utile…" style="resize:none"></textarea></div>
+      <div class="fg"><label class="fl">Catégorie</label>
+        <select class="fi" id="sugCat">
+          <option>🗺️ Carte & Navigation</option>
+          <option>💳 Paiement & Abonnement</option>
+          <option>⭐ Notation & Avis</option>
+          <option>♿ Accessibilité</option>
+          <option>🔔 Notifications</option>
+          <option>🏠 Espace hôte</option>
+          <option>🌍 Nouvelles zones</option>
+          <option>💡 Autre</option>
+        </select>
+      </div>
+      <button class="ma" onclick="submitSuggestion()">Envoyer ma suggestion 💡</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PROFILE ══════════ -->
+<div id="s-profile" class="screen">
+  <div class="prof-top">
+    <div class="prof-banner">
+      <div class="pav">👤</div>
+      <div>
+        <div class="pnm">Noé D.</div>
+        <div class="pmt">Fondateur · Hôte · Membre depuis jan. 2025 · Lille, Nord (59)</div>
+        <div class="ppls">
+          <span class="pill pg">✅ Vérifié</span>
+          <span class="pill pp">⭐ GoWc+</span>
+          <span class="pill pt">🚀 Fondateur</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pgrid">
+    <div class="pcard">
+      <h3>📅 Réservations récentes</h3>
+      <div class="bki"><div class="bk-ic">☕</div><div class="bk-if"><strong>Café Méo — Vieux-Lille</strong><span>Hier · 13h47 · 1,99 €</span></div><span class="pill pg" style="margin-left:auto;font-size:.58rem">✓</span></div>
+      <div class="bki"><div class="bk-ic">🏛️</div><div class="bk-if"><strong>Mairie de Lille (Gratuit)</strong><span>Avant-hier · 11h20 · 0 €</span></div><span class="pill pg" style="margin-left:auto;font-size:.58rem">✓</span></div>
+      <div class="bki"><div class="bk-ic">🏨</div><div class="bk-if"><strong>Hôtel Barrière</strong><span>Il y a 4 jours · 1,99 €</span></div><span class="pill pg" style="margin-left:auto;font-size:.58rem">✓</span></div>
+    </div>
+    <div class="pcard">
+      <h3>⭐ Mon abonnement</h3>
+      <div style="background:linear-gradient(135deg,rgba(197,150,0,.1),rgba(240,192,0,.06));border:1px solid rgba(240,192,0,.2);border-radius:var(--r2);padding:15px;margin-bottom:10px;">
+        <div style="font-weight:800;font-size:.88rem;color:var(--plus);margin-bottom:4px;">⭐ GoWc+ actif</div>
+        <div style="font-size:.74rem;color:var(--a60);margin-bottom:10px;">Accès illimité · Renouvellement le 1er mai 2025</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span class="pill pp" style="font-size:.6rem">✓ Illimité</span>
+          <span class="pill pp" style="font-size:.6rem">✓ 0,50€ offerts</span>
+          <span class="pill pp" style="font-size:.6rem">✓ Priorité</span>
+        </div>
+      </div>
+      <button class="btn btn-o btn-sm" style="width:100%;justify-content:center" onclick="openM('plus')">Gérer mon abonnement</button>
+    </div>
+    <div class="pcard">
+      <h3>📊 Mes statistiques</h3>
+      <div class="smg">
+        <div class="sm"><div class="sm-v grad">31</div><div class="sm-l">Visites</div></div>
+        <div class="sm"><div class="sm-v" style="color:var(--plus)">12</div><div class="sm-l">Avis donnés</div></div>
+        <div class="sm"><div class="sm-v" style="color:var(--t2)">7</div><div class="sm-l">Favoris</div></div>
+        <div class="sm"><div class="sm-v grad-g">4.9</div><div class="sm-l">Note hôte</div></div>
+      </div>
+    </div>
+    <div class="pcard">
+      <h3>⚙️ Mon compte</h3>
+      <div class="slist">
+        <button class="sb" onclick="openM('editProfile')">✏️ Modifier mon profil</button>
+        <button class="sb" onclick="openM('addPlace')">🚽 Inscrire mes sanitaires</button>
+        <button class="sb" onclick="openM('payments')">💳 Paiements & virements</button>
+        <button class="sb" onclick="openM('notifs')">🔔 Notifications</button>
+        <button class="sb dng" onclick="toast('Déconnexion réussie 👋')">🚪 Déconnexion</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- SCANNER HOTE -->
+<div id="s-scanner" class="screen" style="background:var(--bg0);min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;position:relative;z-index:1">
+
+  <!-- WAITING / SCAN -->
+  <div id="scan-waiting" style="text-align:center;width:100%;max-width:320px">
+    <div style="font-size:3.5rem;margin-bottom:14px;filter:drop-shadow(0 0 20px rgba(0,187,238,.5))">📷</div>
+    <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;letter-spacing:-.5px;margin-bottom:6px">Scanner le QR Code</div>
+    <div style="font-size:.82rem;color:var(--a60);line-height:1.7;margin-bottom:22px">Demandez au visiteur de vous montrer son QR code. Scannez pour valider l'accès.</div>
+
+    <div style="width:260px;height:260px;margin:0 auto 22px;position:relative;border-radius:20px;overflow:hidden;background:var(--bg2);border:2px solid rgba(0,187,238,.25);box-shadow:0 0 40px rgba(0,187,238,.1)">
+      <div style="position:absolute;inset:0;background:linear-gradient(145deg,rgba(0,187,238,.05),transparent)"></div>
+      <div style="position:absolute;top:14px;left:14px;width:30px;height:30px;border-top:3px solid var(--t2);border-left:3px solid var(--t2);border-radius:4px 0 0 0"></div>
+      <div style="position:absolute;top:14px;right:14px;width:30px;height:30px;border-top:3px solid var(--t2);border-right:3px solid var(--t2);border-radius:0 4px 0 0"></div>
+      <div style="position:absolute;bottom:14px;left:14px;width:30px;height:30px;border-bottom:3px solid var(--t2);border-left:3px solid var(--t2);border-radius:0 0 0 4px"></div>
+      <div style="position:absolute;bottom:14px;right:14px;width:30px;height:30px;border-bottom:3px solid var(--t2);border-right:3px solid var(--t2);border-radius:0 0 4px 0"></div>
+      <div id="scanLine" style="position:absolute;left:14px;right:14px;height:2px;background:linear-gradient(90deg,transparent,var(--t2),transparent);animation:scanMove 2s ease-in-out infinite;top:50%"></div>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px">
+        <div style="font-size:2.2rem;opacity:.2">⬛</div>
+        <div style="font-size:.66rem;color:var(--a30)">Pointez vers le QR code</div>
+      </div>
+    </div>
+
+    <button onclick="simulateScan()" style="width:100%;padding:14px;border-radius:50px;background:linear-gradient(135deg,var(--t1),var(--t2));color:#fff;font-weight:900;font-size:.9rem;border:none;cursor:pointer;box-shadow:0 6px 20px rgba(0,187,238,.35);margin-bottom:14px">📷 Scanner le QR code</button>
+
+    <div style="font-size:.72rem;color:var(--a40);margin-bottom:12px">— ou saisir le code manuellement —</div>
+    <div style="display:flex;gap:8px">
+      <input type="text" id="manualCode" maxlength="4" placeholder="Code 4 chiffres (ex: 4829)" style="flex:1;padding:11px 14px;background:rgba(0,187,238,.06);border:1.5px solid rgba(0,187,238,.2);border-radius:11px;color:#fff;font-size:.86rem;outline:none;font-family:'DM Sans',sans-serif">
+      <button onclick="validateManual()" style="padding:11px 16px;border-radius:11px;background:rgba(0,187,238,.15);color:var(--t2);border:1.5px solid rgba(0,187,238,.25);font-weight:700;font-size:.8rem;cursor:pointer;white-space:nowrap">Valider ✓</button>
+    </div>
+    <button onclick="go('host')" style="margin-top:18px;padding:8px 20px;border-radius:50px;background:transparent;border:1px solid var(--a15);color:var(--a50);font-size:.74rem;cursor:pointer">← Retour tableau de bord</button>
+  </div>
+
+  <!-- RESULT : VALID -->
+  <div id="scan-result" style="display:none;text-align:center;width:100%;max-width:320px;animation:sIn .4s ease both">
+    <div style="width:86px;height:86px;border-radius:50%;background:linear-gradient(135deg,#16a34a,var(--g1),var(--g2));display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 16px;box-shadow:0 12px 36px rgba(34,197,94,.4)">✓</div>
+    <div style="font-family:'Syne',sans-serif;font-size:1.55rem;font-weight:800;letter-spacing:-.5px;color:var(--g2);margin-bottom:6px">Réservation valide !</div>
+    <div style="font-size:.82rem;color:var(--a60);line-height:1.7;margin-bottom:20px" id="scanResultInfo">—</div>
+
+    <div style="background:rgba(0,196,122,.08);border:1px solid rgba(0,196,122,.22);border-radius:18px;padding:18px;margin-bottom:16px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:center;margin-bottom:14px">
+        <div><div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--g2)" id="scanCode">—</div><div style="font-size:.64rem;color:var(--a40);margin-top:3px">Code validé</div></div>
+        <div><div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--g2)">+1,49 €</div><div style="font-size:.64rem;color:var(--a40);margin-top:3px">Votre crédit</div></div>
+      </div>
+      <div id="scanVisitorCard" style="background:var(--bg2);border:1px solid var(--a08);border-radius:12px;padding:13px;text-align:left"></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <button onclick="refuseAccess()" style="padding:13px;border-radius:50px;background:rgba(239,68,68,.1);border:1.5px solid rgba(239,68,68,.2);color:#f87171;font-weight:800;font-size:.84rem;cursor:pointer">❌ Refuser</button>
+      <button onclick="acceptAccess()" style="padding:13px;border-radius:50px;background:linear-gradient(135deg,#16a34a,var(--g1));color:#fff;font-weight:900;font-size:.84rem;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(34,197,94,.3)">✅ Confirmer</button>
+    </div>
+  </div>
+
+  <!-- RESULT : REFUSED -->
+  <div id="scan-refused" style="display:none;text-align:center;width:100%;max-width:280px;animation:sIn .4s ease both">
+    <div style="width:80px;height:80px;border-radius:50%;background:rgba(239,68,68,.1);border:2px solid rgba(239,68,68,.3);display:flex;align-items:center;justify-content:center;font-size:2.2rem;margin:0 auto 14px">✕</div>
+    <div style="font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;color:#f87171;margin-bottom:8px">Accès refusé</div>
+    <div style="font-size:.8rem;color:var(--a60);margin-bottom:22px;line-height:1.7">Le visiteur a été informé. Aucun crédit débité pour ce refus.</div>
+    <button onclick="resetScanner()" style="padding:13px 28px;border-radius:50px;background:linear-gradient(135deg,var(--t1),var(--t2));color:#fff;font-weight:800;font-size:.86rem;border:none;cursor:pointer">↺ Scanner suivant</button>
+  </div>
+</div>
+
+<style>
+@keyframes scanMove { 0%,100%{top:16px} 50%{top:calc(100% - 18px)} }
+</style>
+
+<!-- BOTTOM NAV -->
+<nav id="bnav">
+  <button class="bn on" id="bn-home"    onclick="go('home')">   <span class="bn-i">🏠</span>Accueil</button>
+  <button class="bn"     id="bn-explore" onclick="go('explore')"><span class="bn-i">🔍</span>Explorer</button>
+  <button class="bn"     id="bn-host"    onclick="go('host')">   <span class="bn-i">💶</span>Revenus</button>
+  <button class="bn"     id="bn-scanner" onclick="go('scanner')"><span class="bn-i">📷</span>Scanner</button>
+  <button class="bn"     id="bn-suggest" onclick="go('suggest')"><span class="bn-i">💡</span>Idées</button>
+  <button class="bn"     id="bn-profile" onclick="go('profile')"><span class="bn-i">👤</span>Profil</button>
+</nav>
+
+<!-- ══════════ MODALS ══════════ -->
+
+<!-- AUTH -->
+<div class="ov" id="ov-auth">
+  <div class="modal">
+    <button class="mc" onclick="closeM('auth')">✕</button>
+    <div class="mt">Bienvenue 👋</div>
+    <div class="ms">520 lieux dans tout le Nord (59)</div>
+    <div class="mtabs">
+      <button class="mtab on" onclick="switchTab(this)">Connexion</button>
+      <button class="mtab" onclick="switchTab(this)">Inscription</button>
+    </div>
+    <div class="fg"><label class="fl">Email</label><input class="fi" type="email" placeholder="vous@email.com"></div>
+    <div class="fg"><label class="fl">Mot de passe</label><input class="fi" type="password" placeholder="••••••••"></div>
+    <button class="ma" onclick="doLogin()">Se connecter</button>
+    <p style="text-align:center;margin-top:11px;font-size:.7rem;color:var(--a40)">Ou avec <a href="#" style="color:var(--t2)">Google</a> · <a href="#" style="color:var(--t2)">Apple</a> · <a href="#" style="color:var(--t2)">Lydia</a></p>
+  </div>
+</div>
+
+<!-- REVIEW — DOUBLE NOTATION (lieu + usager) -->
+<div class="ov" id="ov-review">
+  <div class="modal modal-wide">
+    <button class="mc" onclick="closeM('review')">✕</button>
+    <div class="mt">⭐ Votre avis double</div>
+    <div class="ms">Notez le lieu ET l'usager — deux notations pour plus de confiance</div>
+
+    <!-- NOTE DU LIEU -->
+    <div class="rating-section">
+      <div class="rating-section-title">🚽 Note du lieu sanitaire</div>
+      <div style="display:flex;align-items:center;gap:0">
+        <div class="star-row" id="placeStars">
+          <span data-val="1" onclick="setStarPlace(1)">★</span>
+          <span data-val="2" onclick="setStarPlace(2)">★</span>
+          <span data-val="3" onclick="setStarPlace(3)">★</span>
+          <span data-val="4" onclick="setStarPlace(4)">★</span>
+          <span data-val="5" onclick="setStarPlace(5)">★</span>
+        </div>
+        <span class="star-score" id="placeScore">—</span>
+      </div>
+      <div class="rating-desc" id="placeDesc">Cliquez sur les étoiles pour noter</div>
+    </div>
+
+    <!-- NOTE DE L'USAGER -->
+    <div class="rating-section">
+      <div class="rating-section-title">👤 Note de l'usager (comportement)</div>
+      <div style="display:flex;align-items:center;gap:0">
+        <div class="star-row" id="userStars">
+          <span data-val="1" onclick="setStarUser(1)">★</span>
+          <span data-val="2" onclick="setStarUser(2)">★</span>
+          <span data-val="3" onclick="setStarUser(3)">★</span>
+          <span data-val="4" onclick="setStarUser(4)">★</span>
+          <span data-val="5" onclick="setStarUser(5)">★</span>
+        </div>
+        <span class="star-score" id="userScore">—</span>
+      </div>
+      <div class="rating-desc" id="userDesc">Respect des lieux, ponctualité, comportement</div>
+    </div>
+
+    <div class="fg"><label class="fl">Commentaire sur le lieu</label><textarea class="fi" rows="2" id="reviewPlace" placeholder="Propre, bien équipé, facile d'accès…" style="resize:none"></textarea></div>
+    <div class="fg"><label class="fl">Commentaire sur l'usager (optionnel)</label><textarea class="fi" rows="2" id="reviewUser" placeholder="Ponctuel, respectueux du lieu…" style="resize:none"></textarea></div>
+    <button class="ma" onclick="submitReview()">Publier mon avis double ⭐</button>
+    <p style="text-align:center;margin-top:9px;font-size:.68rem;color:var(--a40)">Vos notes restent anonymes pour les autres utilisateurs</p>
+  </div>
+</div>
+
+<!-- TOILETTOGO+ -->
+<div class="ov" id="ov-plus">
+  <div class="modal modal-wide">
+    <button class="mc" onclick="closeM('plus')">✕</button>
+    <div style="text-align:center;margin-bottom:18px">
+      <div style="display:inline-block;padding:4px 12px;border-radius:8px;background:linear-gradient(135deg,var(--plus),var(--plus2));color:var(--bg0);font-weight:900;font-size:.8rem;letter-spacing:.4px;margin-bottom:11px">⭐ TOILETTOGO+</div>
+      <div class="mt">L'abonnement premium</div>
+      <div class="ms">Accès illimité dans tout le Nord (59)</div>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(197,150,0,.1),rgba(240,192,0,.06));border:1px solid rgba(240,192,0,.22);border-radius:var(--r2);padding:18px;margin-bottom:14px">
+      <div style="text-align:center;margin-bottom:13px">
+        <div style="font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;letter-spacing:-2px;background:linear-gradient(135deg,var(--plus),var(--plus2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1">9,99 €</div>
+        <div style="font-size:.73rem;color:var(--a50,rgba(255,255,255,.5));margin-top:3px">par mois · sans engagement · résiliable à tout moment</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:9px;font-size:.82rem;color:var(--a80,rgba(255,255,255,.8))"><span style="color:var(--plus);font-weight:900">⭐</span><strong>Accès illimité</strong> — Plus de 2,00 € par visite</div>
+        <div style="display:flex;align-items:center;gap:9px;font-size:.82rem;color:var(--a80,rgba(255,255,255,.8))"><span style="color:var(--plus);font-weight:900">⭐</span><strong>0,50 € offerts</strong> par réservation</div>
+        <div style="display:flex;align-items:center;gap:9px;font-size:.82rem;color:var(--a80,rgba(255,255,255,.8))"><span style="color:var(--plus);font-weight:900">⭐</span>Lieux premium en priorité sur la carte</div>
+        <div style="display:flex;align-items:center;gap:9px;font-size:.82rem;color:var(--a80,rgba(255,255,255,.8))"><span style="color:var(--plus);font-weight:900">⭐</span>Accès lieux exclusifs partenaires</div>
+        <div style="display:flex;align-items:center;gap:9px;font-size:.82rem;color:var(--a80,rgba(255,255,255,.8))"><span style="color:var(--plus);font-weight:900">⭐</span>Support client prioritaire 7j/7</div>
+      </div>
+    </div>
+    <div style="background:rgba(0,196,122,.07);border:1px solid rgba(0,196,122,.18);border-radius:10px;padding:10px;margin-bottom:13px;font-size:.74rem;color:var(--g2);text-align:center">
+      💡 Rentable dès la <strong>3ème visite</strong> par mois
+    </div>
+    <button class="ma ma-plus" onclick="subscribePlus()">S'abonner — 9,99 €/mois</button>
+    <p style="text-align:center;margin-top:9px;font-size:.68rem;color:var(--a40)">Sans engagement · Stripe sécurisé · Résiliable à tout moment</p>
+  </div>
+</div>
+
+<!-- ADD PLACE -->
+<div class="ov" id="ov-addPlace">
+  <div class="modal modal-wide">
+    <button class="mc" onclick="closeM('addPlace')">✕</button>
+    <div class="mt">🚽 Inscrire mes sanitaires</div>
+    <div class="ms">Gratuit · Validation 24h · Vous recevez 1,49 € net / visite</div>
+    <div class="fg"><label class="fl">Nom du lieu</label><input class="fi" placeholder="Café Paul, Chez Marie…"></div>
+    <div class="fg"><label class="fl">Ville (Nord 59)</label>
+      <select class="fi"><option>Lille</option><option>Roubaix</option><option>Tourcoing</option><option>Valenciennes</option><option>Dunkerque</option><option>Douai</option><option>Cambrai</option><option>Maubeuge</option><option>Autre commune du Nord</option></select>
+    </div>
+    <div class="fg"><label class="fl">Adresse complète</label><input class="fi" placeholder="Numéro, rue, code postal"></div>
+    <div class="fg"><label class="fl">Type de lieu</label>
+      <select class="fi"><option>🏠 Domicile</option><option>☕ Café / Restaurant</option><option>🛍️ Commerce</option><option>🏨 Hôtel</option><option>🏢 Bureau</option><option>🏛️ Lieu public</option></select>
+    </div>
+    <div style="background:rgba(0,196,122,.08);border:1px solid rgba(0,196,122,.18);border-radius:11px;padding:12px;margin-bottom:12px;">
+      <div style="font-size:.78rem;font-weight:800;color:var(--g2);margin-bottom:6px;">💶 Rémunération fixe et transparente</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center;">
+        <div><div style="font-size:1.1rem;font-weight:800;color:var(--white)">1,99 €</div><div style="font-size:.62rem;color:var(--a50,rgba(255,255,255,.5))">Prix utilisateur</div></div>
+        <div><div style="font-size:1.1rem;font-weight:800;color:var(--g2)">1,49 €</div><div style="font-size:.62rem;color:var(--a50,rgba(255,255,255,.5))">Vous recevez</div></div>
+        <div><div style="font-size:1.1rem;font-weight:800;color:var(--t2)">0,50 €</div><div style="font-size:.62rem;color:var(--a50,rgba(255,255,255,.5))">Commission app</div></div>
+      </div>
+    </div>
+    <div class="fg"><label class="fl">Horaires</label><input class="fi" placeholder="08h00 – 22h00 · 7j/7"></div>
+    <div class="fg"><label class="fl">Équipements</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:4px">
+        <label style="display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--a60);cursor:pointer"><input type="checkbox" style="accent-color:var(--t2)"> ♿ PMR</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--a60);cursor:pointer"><input type="checkbox" style="accent-color:var(--t2)"> 👶 Table à langer</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--a60);cursor:pointer"><input type="checkbox" style="accent-color:var(--t2)"> 🚿 Douche</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--a60);cursor:pointer"><input type="checkbox" style="accent-color:var(--t2)"> ❄️ Climatisé</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--a60);cursor:pointer"><input type="checkbox" style="accent-color:var(--t2)"> 🧴 Savon fourni</label>
+        <label style="display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--a60);cursor:pointer"><input type="checkbox" style="accent-color:var(--t2)"> 🔒 Accès sécurisé</label>
+      </div>
+    </div>
+    
+    <div class="photo-upload-zone" style="margin-bottom:14px;">
+      <div class="photo-upload-title">📸 Photos de vos sanitaires <span style="color:var(--g2);font-size:.62rem">(3 photos recommandées)</span></div>
+      <div class="photo-slots" id="hostPhotoSlots">
+        <div class="photo-slot" id="slot0" onclick="triggerPhotoUpload(0)" title="Photo principale">
+          <span class="photo-slot-num">1</span>
+          <div class="photo-slot-ico">📸</div>
+          <div class="photo-slot-lbl" style="font-size:.62rem;color:var(--a40);text-align:center">Photo<br>principale</div>
+          <div class="photo-slot-overlay"></div>
+          <button class="photo-slot-del" onclick="event.stopPropagation();removeHostPhoto(0)">✕</button>
+        </div>
+        <div class="photo-slot" id="slot1" onclick="triggerPhotoUpload(1)" title="Photo 2">
+          <span class="photo-slot-num">2</span>
+          <div class="photo-slot-ico">📸</div>
+          <div class="photo-slot-lbl" style="font-size:.62rem;color:var(--a40);text-align:center">Vue<br>intérieure</div>
+          <div class="photo-slot-overlay"></div>
+          <button class="photo-slot-del" onclick="event.stopPropagation();removeHostPhoto(1)">✕</button>
+        </div>
+        <div class="photo-slot" id="slot2" onclick="triggerPhotoUpload(2)" title="Photo 3">
+          <span class="photo-slot-num">3</span>
+          <div class="photo-slot-ico">📸</div>
+          <div class="photo-slot-lbl" style="font-size:.62rem;color:var(--a40);text-align:center">Équipe-<br>ments</div>
+          <div class="photo-slot-overlay"></div>
+          <button class="photo-slot-del" onclick="event.stopPropagation();removeHostPhoto(2)">✕</button>
+        </div>
+      </div>
+      <div style="margin-top:8px;font-size:.68rem;color:var(--a40);text-align:center">
+        JPG, PNG · Max 5 Mo/photo · Au moins 1 photo obligatoire
+      </div>
+      <input type="file" id="hostPhotoInput" accept="image/*" style="display:none" onchange="handleHostPhoto(event)">
+    </div>
+<button class="ma" onclick="submitPlace()">Soumettre mon annonce ✓</button>
+  </div>
+</div>
+
+<!-- PAYMENTS -->
+<div class="ov" id="ov-payments">
+  <div class="modal">
+    <button class="mc" onclick="closeM('payments')">✕</button>
+    <div class="mt">💳 Paiements & Virements</div>
+    <div class="ms">Moyens de paiement · Virements hôte chaque lundi</div>
+    <div style="background:rgba(240,192,0,.07);border:1px solid rgba(240,192,0,.18);border-radius:10px;padding:11px;margin-bottom:14px;font-size:.74rem;color:var(--plus)">
+      💶 <strong>Virement automatique chaque lundi</strong><br>
+      <span style="color:var(--a60);font-size:.68rem">1,49 € net × visites, virés chaque lundi sur votre IBAN.</span>
+    </div>
+    <div class="pay-it"><span style="font-size:1.1rem">💳</span><div><strong style="font-size:.78rem;display:block">Carte (Stripe)</strong><span style="font-size:.66rem;color:var(--a40)">Visa / Mastercard / Amex</span></div><span class="pay-on">Actif</span></div>
+    <div class="pay-it"><span style="font-size:1.1rem">🍎</span><div><strong style="font-size:.78rem;display:block">Apple Pay</strong><span style="font-size:.66rem;color:var(--a40)">Touch ID / Face ID</span></div><button class="pay-add">+ Activer</button></div>
+    <div class="pay-it"><span style="font-size:1.1rem">🟢</span><div><strong style="font-size:.78rem;display:block">Google Pay</strong><span style="font-size:.66rem;color:var(--a40)">NFC Android</span></div><button class="pay-add">+ Activer</button></div>
+    <div class="pay-it"><span style="font-size:1.1rem">💜</span><div><strong style="font-size:.78rem;display:block">Lydia / Sumeria</strong><span style="font-size:.66rem;color:var(--a40)">QR Code</span></div><button class="pay-add">+ Activer</button></div>
+    <div class="pay-it"><span style="font-size:1.1rem">🏦</span><div><strong style="font-size:.78rem;display:block">IBAN (hôtes)</strong><span style="font-size:.66rem;color:var(--a40)">Virement chaque lundi · 1,50€/visite</span></div><span class="pay-on">Actif</span></div>
+  </div>
+</div>
+
+<!-- NOTIFS -->
+<div class="ov" id="ov-notifs">
+  <div class="modal">
+    <button class="mc" onclick="closeM('notifs')">✕</button>
+    <div class="mt">🔔 Notifications</div>
+    <div class="ms">Vos alertes personnalisées</div>
+    <div style="display:flex;flex-direction:column;gap:11px;margin-top:4px">
+      <label style="display:flex;align-items:center;justify-content:space-between;font-size:.82rem;color:var(--a60);cursor:pointer">Nouvelle réservation reçue <input type="checkbox" checked style="accent-color:var(--t2)"></label>
+      <label style="display:flex;align-items:center;justify-content:space-between;font-size:.82rem;color:var(--a60);cursor:pointer">Virement reçu (lundi matin) <input type="checkbox" checked style="accent-color:var(--t2)"></label>
+      <label style="display:flex;align-items:center;justify-content:space-between;font-size:.82rem;color:var(--a60);cursor:pointer">Nouveau lieu près de moi (géoloc) <input type="checkbox" checked style="accent-color:var(--t2)"></label>
+      <label style="display:flex;align-items:center;justify-content:space-between;font-size:.82rem;color:var(--a60);cursor:pointer">Rappel avis à laisser <input type="checkbox" checked style="accent-color:var(--t2)"></label>
+      <label style="display:flex;align-items:center;justify-content:space-between;font-size:.82rem;color:var(--a60);cursor:pointer">Note reçue de l'hôte <input type="checkbox" checked style="accent-color:var(--t2)"></label>
+      <label style="display:flex;align-items:center;justify-content:space-between;font-size:.82rem;color:var(--a60);cursor:pointer">Vote sur ma suggestion <input type="checkbox" checked style="accent-color:var(--t2)"></label>
+      <label style="display:flex;align-items:center;justify-content:space-between;font-size:.82rem;color:var(--a60);cursor:pointer">Renouvellement GoWc+ <input type="checkbox" checked style="accent-color:var(--t2)"></label>
+    </div>
+    <button class="ma" style="margin-top:16px" onclick="closeM('notifs');toast('✅ Préférences enregistrées')">Enregistrer</button>
+  </div>
+</div>
+
+<!-- EDIT PROFILE -->
+<div class="ov" id="ov-editProfile">
+  <div class="modal">
+    <button class="mc" onclick="closeM('editProfile')">✕</button>
+    <div class="mt">✏️ Mon profil</div>
+    <div class="ms">Informations personnelles</div>
+    <div class="fg"><label class="fl">Prénom</label><input class="fi" value="Noé"></div>
+    <div class="fg"><label class="fl">Nom</label><input class="fi" value="D."></div>
+    <div class="fg"><label class="fl">Email</label><input class="fi" type="email" value="noe@gowc.fr"></div>
+    <div class="fg"><label class="fl">Téléphone</label><input class="fi" type="tel" value="+33 6 00 00 00 00"></div>
+    <div class="fg"><label class="fl">Ville (Nord 59)</label><input class="fi" value="Lille"></div>
+    <div class="fg"><label class="fl">IBAN (virements hôte)</label><input class="fi" value="FR76 XXXX XXXX XXXX XXXX XXXX XXX"></div>
+    <button class="ma" onclick="saveProfile()">Enregistrer</button>
+  </div>
+</div>
+
+<!-- CGU -->
+<div class="ov" id="ov-cgu">
+  <div class="modal modal-wide">
+    <button class="mc" onclick="closeM('cgu')">✕</button>
+    <div class="mt">📋 CGU — GoWc</div>
+    <div style="font-size:.74rem;color:var(--a60);line-height:1.8;max-height:60vh;overflow-y:auto;margin-top:12px">
+      <p><strong style="color:var(--white)">1. Objet</strong><br>GoWc est une plateforme de mise en relation entre propriétaires de sanitaires et utilisateurs dans le Nord (59) et toute la France.</p><br>
+      <p><strong style="color:var(--white)">2. Tarification</strong><br>Prix par visite : 2,00 € TTC. L'hôte reçoit 1,49 € net. GoWc perçoit 0,50 € de commission. Tarifs fixes et transparents.</p><br>
+      <p><strong style="color:var(--white)">3. Double notation</strong><br>Après chaque visite, l'utilisateur peut noter le lieu et l'hôte peut noter l'usager. Les notes sont anonymisées et contribuent à la qualité du service.</p><br>
+      <p><strong style="color:var(--white)">4. Abonnement GoWc+</strong><br>9,99 €/mois sans engagement. Accès illimité. Résiliable à tout moment dans les paramètres.</p><br>
+      <p><strong style="color:var(--white)">5. Géolocalisation</strong><br>Utilisée uniquement pour afficher les lieux proches. Non stockée. Vous pouvez refuser à tout moment dans les paramètres de votre téléphone.</p><br>
+      <p><strong style="color:var(--white)">6. Virements hôtes</strong><br>1,49 € net par visite, virés automatiquement chaque lundi matin sur l'IBAN déclaré.</p><br>
+      <p><strong style="color:var(--white)">7. Contact</strong><br>contact@gowc.fr · www.toilettogo.fr · Nord (59), France</p>
+    </div>
+    <button class="ma" style="margin-top:14px" onclick="closeM('cgu')">J'ai compris</button>
+  </div>
+</div>
+
+<!-- PRIVACY -->
+<div class="ov" id="ov-privacy">
+  <div class="modal">
+    <button class="mc" onclick="closeM('privacy')">✕</button>
+    <div class="mt">🔒 Confidentialité</div>
+    <div style="font-size:.74rem;color:var(--a60);line-height:1.8;max-height:60vh;overflow-y:auto;margin-top:12px">
+      <p><strong style="color:var(--white)">Données collectées</strong><br>Nom, email, téléphone, IBAN (hôtes), historique réservations, avis, géolocalisation (usage en temps réel uniquement).</p><br>
+      <p><strong style="color:var(--white)">Géolocalisation</strong><br>Utilisée uniquement pour afficher les lieux proches. Non stockée sur nos serveurs. Vous pouvez désactiver à tout moment.</p><br>
+      <p><strong style="color:var(--white)">Notations</strong><br>Les notes lieu et usager sont stockées anonymement. Seul l'hôte voit la note usager de ses visiteurs.</p><br>
+      <p><strong style="color:var(--white)">Conservation</strong><br>3 ans après dernière activité, conformément au RGPD.</p><br>
+      <p><strong style="color:var(--white)">Vos droits</strong><br>Accès, rectification, suppression sur demande à contact@gowc.fr.</p>
+    </div>
+    <button class="ma" style="margin-top:14px" onclick="closeM('privacy')">J'ai compris</button>
+  </div>
+</div>
+
+<!-- LEGAL -->
+<div class="ov" id="ov-legal">
+  <div class="modal">
+    <button class="mc" onclick="closeM('legal')">✕</button>
+    <div class="mt">⚖️ Mentions légales</div>
+    <div style="font-size:.74rem;color:var(--a60);line-height:1.8;margin-top:12px">
+      <p><strong style="color:var(--white)">Éditeur</strong><br>GoWc — Structure en cours d'immatriculation · Nord (59), France</p><br>
+      <p><strong style="color:var(--white)">Fondateur</strong><br>Noé D. · contact@gowc.fr</p><br>
+      <p><strong style="color:var(--white)">Hébergement</strong><br>Vercel Inc. · San Francisco, USA</p><br>
+      <p><strong style="color:var(--white)">Paiements</strong><br>Stripe Inc. · PCI-DSS certifié</p>
+    </div>
+    <button class="ma" style="margin-top:14px" onclick="closeM('legal')">Fermer</button>
+  </div>
+</div>
+
+
+<!-- PHOTO VIEWER MODAL -->
+<div class="photo-viewer" id="photoViewer">
+  <button class="pv-close" onclick="closePhotoViewer()">✕</button>
+  <div class="pv-img-wrap" id="pvImgWrap"></div>
+  <div class="pv-nav">
+    <button class="pv-arr" onclick="pvPrev()">←</button>
+    <div class="pv-dots" id="pvDots"></div>
+    <button class="pv-arr" onclick="pvNext()">→</button>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+'use strict';
+
+// Photos simulées pour chaque lieu (en production : vraies URLs Supabase Storage)
+const PLACE_PHOTOS = {
+  0: ['photo_cafe_wc1','photo_cafe_wc2','photo_cafe_wc3'],
+  1: ['photo_mall_wc1','photo_mall_wc2','photo_mall_wc3'],
+  2: ['photo_hotel_wc1','photo_hotel_wc2','photo_hotel_wc3'],
+  3: ['photo_marche_wc1','photo_marche_wc2','photo_marche_wc3'],
+  4: ['photo_gare_wc1','photo_gare_wc2','photo_gare_wc3'],
+  5: ['photo_sport_wc1','photo_sport_wc2','photo_sport_wc3'],
+  6: ['photo_musee_wc1','photo_musee_wc2','photo_musee_wc3'],
+  7: ['photo_hotel2_wc1','photo_hotel2_wc2','photo_hotel2_wc3'],
+  8: ['photo_port_wc1','photo_port_wc2','photo_port_wc3'],
+  9: ['photo_mairie_wc1','photo_mairie_wc2','photo_mairie_wc3'],
+  10:['photo_parc_wc1','photo_parc_wc2','photo_parc_wc3'],
+  11:['photo_gare2_wc1','photo_gare2_wc2','photo_gare2_wc3'],
+  12:['photo_citadelle_wc1','photo_citadelle_wc2','photo_citadelle_wc3'],
+  13:['photo_media_wc1','photo_media_wc2','photo_media_wc3'],
+  14:['photo_place_wc1','photo_place_wc2','photo_place_wc3'],
+};
+
+// Couleurs de fond simulant des vraies photos
+const PHOTO_GRADIENTS = [
+  ['linear-gradient(145deg,#1a3a4a,#0d2030)','linear-gradient(145deg,#0d2a1a,#061810)','linear-gradient(145deg,#2a1a0d,#180d06)'],
+  ['linear-gradient(145deg,#1a2a3a,#0d1a28)','linear-gradient(145deg,#0a1a2a,#061018)','linear-gradient(145deg,#1a0d2a,#100618)'],
+  ['linear-gradient(145deg,#2a2a1a,#181806)','linear-gradient(145deg,#0a2a1a,#061810)','linear-gradient(145deg,#1a0a2a,#100618)'],
+  ['linear-gradient(145deg,#1a3a2a,#0d2018)','linear-gradient(145deg,#2a1a0a,#180d06)','linear-gradient(145deg,#0a1a3a,#061020)'],
+];
+
+// State photo viewer
+let pvPhotos=[], pvIdx=0, pvPlaceId=null;
+
+function getPhotos(placeId){
+  return PLACE_PHOTOS[placeId] || [];
+}
+function getPhotoGrad(placeId,idx){
+  const grads = PHOTO_GRADIENTS[placeId % PHOTO_GRADIENTS.length];
+  return grads[idx % grads.length];
+}
+
+
+/* ══════════════════════════════════
+   DATA
+══════════════════════════════════ */
+const PLACES = [
+  // ── PAYANTS (priorité affichage) ──
+  {id:0,n:"Café Méo — Vieux-Lille",a:"36 Rue de la Monnaie, 59000 Lille",t:"Café",e:"☕",
+   bg:"linear-gradient(145deg,#040e1c,#020a14)",r:4.9,ur:4.7,rv:63,p:1.99,h:"07h–20h",free:false,dist:120,
+   desc:"Toilettes impeccables dans un café emblématique du Vieux-Lille. Nettoyage 4× par jour, savon bio, sèche-mains automatique. À deux pas de la Grand'Place.",
+   amen:["🧼 Savon bio","🌬️ Sèche-mains","🪞 Grand miroir","♿ PMR","❄️ Climatisé","🔒 Code sécurisé"],
+   tags:["payant","pmr","premium"],
+   revs:[{a:"Claire D.",pr:5,ur:5,t:"Impeccables, accueil super !",d:"Hier"},{a:"Hugo M.",pr:5,ur:4,t:"Le must du Vieux-Lille.",d:"Il y a 3 jours"},{a:"Fatima B.",pr:4,ur:5,t:"Très bien, petite queue parfois.",d:"Il y a 1 semaine"}]},
+  {id:1,n:"Euralille Centre Commercial",a:"Place des Buisses, 59000 Lille",t:"Centre commercial",e:"🛍️",
+   bg:"linear-gradient(145deg,#03091a,#020712)",r:4.7,ur:4.5,rv:211,p:1.99,h:"09h30–20h30",free:false,dist:280,
+   desc:"Sanitaires spacieux et modernes au cœur d'Euralille. PMR large, table à langer, nettoyage continu.",
+   amen:["👶 Table à langer","♿ PMR large","🚿 Douche (+2€)","🧴 Savon","🔒 Sécurisé","🌐 Wi-Fi"],
+   tags:["payant","pmr","bebe","douche","metro"],
+   revs:[{a:"Sophie L.",pr:5,ur:5,t:"Très propres !",d:"Il y a 2 jours"},{a:"Marc T.",pr:4,ur:4,t:"Bien équipé.",d:"Il y a 5 jours"}]},
+  {id:2,n:"Hôtel Barrière Lille",a:"Avenue du Casino, 59777 Lille",t:"Hôtel 5★",e:"🏨",
+   bg:"linear-gradient(145deg,#020712,#01060e)",r:5.0,ur:4.9,rv:88,p:1.99,h:"00h–24h",free:false,dist:280,
+   desc:"Sanitaires 5 étoiles ouverts 24h/24. Douche privative disponible. Produits Hermès.",
+   amen:["🚿 Douche (+3€)","💐 Fleurs fraîches","🧴 Produits Hermès","♿ PMR","🔑 VIP","🌙 24h/24"],
+   tags:["payant","douche","pmr","ouvert24","premium"],
+   revs:[{a:"Isabelle C.",pr:5,ur:5,t:"Un luxe absolu !",d:"Hier"},{a:"Patrick V.",pr:5,ur:5,t:"5 étoiles mérités.",d:"Il y a 4 jours"}]},
+  {id:3,n:"Marché de Wazemmes",a:"Place Nouvelle-Aventure, 59000 Lille",t:"Marché",e:"🥕",
+   bg:"linear-gradient(145deg,#040e14,#030a0e)",r:4.0,ur:4.2,rv:156,p:1.99,h:"06h–14h (mar/jeu/dim)",free:false,dist:410,
+   desc:"Sanitaires rénovés du marché de Wazemmes. Nettoyage horaire les jours de marché.",
+   amen:["🧼 Savon","♿ PMR","🪣 Nettoyage/heure","🌿 Produits éco"],
+   tags:["payant","pmr"],
+   revs:[{a:"René B.",pr:4,ur:3,t:"Propre le matin.",d:"Il y a 3 jours"},{a:"Sylvie M.",pr:4,ur:4,t:"Correct.",d:"Il y a 2 semaines"}]},
+  {id:4,n:"Gare Lille-Flandres Premium",a:"Place de la Gare, 59000 Lille",t:"Gare SNCF",e:"🚉",
+   bg:"linear-gradient(145deg,#030814,#02060e)",r:4.4,ur:4.3,rv:342,p:1.99,h:"05h–23h30",free:false,dist:320,
+   desc:"Espace premium abonnés. Douche voyageur, PMR, table à langer. Zone gratuite disponible côté hall.",
+   amen:["♿ PMR","👶 Table à langer","🚿 Douche voyageurs","🔒 Sécurisé","🚇 Métro direct","🧴 Savon"],
+   tags:["payant","pmr","bebe","douche","metro","ouvert24"],
+   revs:[{a:"Kevin J.",pr:5,ur:5,t:"Idéal entre deux trains !",d:"Il y a 1 jour"},{a:"Anna R.",pr:4,ur:4,t:"La douche est un vrai plus.",d:"Il y a 4 jours"}]},
+  {id:5,n:"Gymnase Club Vieux-Lille",a:"Rue de l'Hôpital Militaire, 59000 Lille",t:"Club sportif",e:"🏋️",
+   bg:"linear-gradient(145deg,#040a14,#02070e)",r:4.6,ur:4.8,rv:47,p:1.99,h:"07h–22h",free:false,dist:380,
+   desc:"Vestiaires premium en accès partagé. Douches chaudes, gel douche inclus.",
+   amen:["🚿 Douche chaude","🧴 Gel douche","🪒 Rasage","♿ PMR","🔒 Casiers","💪 Wi-Fi"],
+   tags:["payant","douche","pmr","premium"],
+   revs:[{a:"Julien P.",pr:5,ur:5,t:"Parfait après mon jogging !",d:"Il y a 2 jours"},{a:"Camille D.",pr:4,ur:5,t:"Propre, bien équipé.",d:"Il y a 1 semaine"}]},
+  {id:6,n:"La Piscine — Roubaix",a:"23 Rue de l'Espérance, 59100 Roubaix",t:"Musée Art Déco",e:"🎨",
+   bg:"linear-gradient(145deg,#030c14,#020a0e)",r:4.8,ur:4.6,rv:73,p:1.99,h:"09h–18h",free:false,dist:null,
+   desc:"Sanitaires design du Musée d'art et d'industrie de Roubaix. Accessibles sans entrée.",
+   amen:["🎨 Design Art Déco","♿ PMR","🧼 Savon","🌸 Parfumé","🌿 Éco","🔒 Sécurisé"],
+   tags:["payant","pmr","premium"],
+   revs:[{a:"Marie-Claire V.",pr:5,ur:5,t:"Un bijou !",d:"Il y a 2 jours"},{a:"François B.",pr:5,ur:4,t:"Design et propre.",d:"Il y a 5 jours"}]},
+  {id:7,n:"Grand Hôtel — Valenciennes",a:"8 Place d'Armes, 59300 Valenciennes",t:"Hôtel 4★",e:"🏨",
+   bg:"linear-gradient(145deg,#030810,#020610)",r:4.7,ur:4.5,rv:42,p:1.99,h:"07h–23h",free:false,dist:null,
+   desc:"Sanitaires 4 étoiles de l'hôtel emblématique de Valenciennes. Propre et bien entretenu.",
+   amen:["🧴 Savon premium","🪞 Miroir","♿ PMR","❄️ Climatisé","🔒 Code accès"],
+   tags:["payant","pmr","premium"],
+   revs:[{a:"Laurent M.",pr:5,ur:5,t:"Très bien pour Valenciennes !",d:"Il y a 2 jours"},{a:"Christine B.",pr:4,ur:4,t:"Propre, bien situé.",d:"Il y a 1 semaine"}]},
+  {id:8,n:"Café du Port — Dunkerque",a:"Place du Minck, 59140 Dunkerque",t:"Café",e:"⚓",
+   bg:"linear-gradient(145deg,#030e12,#020a0e)",r:4.5,ur:4.4,rv:38,p:1.99,h:"08h–21h",free:false,dist:null,
+   desc:"Sanitaires du café du port de Dunkerque. Vue sur le port. Idéal pour les visiteurs du Bassin du Commerce.",
+   amen:["🧼 Savon","🌬️ Sèche-mains","♿ PMR","🔒 Code accès","⚓ Vue port"],
+   tags:["payant","pmr"],
+   revs:[{a:"Michel D.",pr:5,ur:5,t:"Super bien pour Dunkerque !",d:"Il y a 3 jours"},{a:"Annick V.",pr:4,ur:4,t:"Propre et bien situé.",d:"Il y a 1 semaine"}]},
+  // ── GRATUITS ──
+  {id:9,n:"Mairie de Lille — Hall",a:"Place du Général de Gaulle, 59000 Lille",t:"Mairie · Public",e:"🏛️",
+   bg:"linear-gradient(145deg,#041408,#030c0e)",r:4.5,ur:4.3,rv:89,p:0,h:"08h30–17h30 (lun–ven)",free:true,dist:350,
+   desc:"Sanitaires publics du hall d'entrée de la Mairie de Lille. Accès libre aux heures d'ouverture. PMR accessible.",
+   amen:["🆓 Accès libre","♿ PMR certifié","🧼 Savon","🌿 Entretien quotidien","🏛️ Sécurisé"],
+   tags:["gratuit","pmr","metro"],
+   revs:[{a:"Isabelle M.",pr:5,ur:5,t:"Impeccable !",d:"Il y a 1 jour"},{a:"Robert C.",pr:4,ur:4,t:"Bien situé, propre.",d:"Il y a 3 jours"},{a:"Anne-Sophie V.",pr:4,ur:4,t:"Accès facile.",d:"Il y a 1 semaine"}]},
+  {id:10,n:"Parc Jean-Baptiste Lebas",a:"Rue Jean-Baptiste Lebas, 59000 Lille",t:"Parc · Public",e:"🌳",
+   bg:"linear-gradient(145deg,#031406,#030c0a)",r:4.1,ur:4.0,rv:134,p:0,h:"07h–21h",free:true,dist:480,
+   desc:"Sanitaires publics du parc J-B Lebas. Accès libre. Nettoyage par la Ville de Lille.",
+   amen:["🆓 Accès libre","👶 Poussette","♿ PMR","🌿 Verdoyant","🚰 Eau potable"],
+   tags:["gratuit","pmr","bebe"],
+   revs:[{a:"Lucie R.",pr:4,ur:4,t:"Correct, entretenu.",d:"Hier"},{a:"Marc B.",pr:4,ur:4,t:"Pratique jogging.",d:"Il y a 4 jours"}]},
+  {id:11,n:"Grand Palais de Lille",a:"1 Boulevard des Cités Unies, 59000 Lille",t:"Centre congrès",e:"🏟️",
+   bg:"linear-gradient(145deg,#071006,#040c0a)",r:4.6,ur:4.5,rv:201,p:0,h:"Aux heures d'événements",free:true,dist:600,
+   desc:"Sanitaires du Grand Palais lors des événements publics. Spacieux, PMR, table à langer. Accès libre sans ticket.",
+   amen:["🆓 Accès libre","♿ PMR large","👶 Table à langer","🧼 Savon","🚿 Douche","🏟️ Grande capacité"],
+   tags:["gratuit","pmr","bebe","douche"],
+   revs:[{a:"Thierry P.",pr:5,ur:5,t:"Excellents lors des foires !",d:"Il y a 2 jours"},{a:"Nathalie V.",pr:5,ur:5,t:"Table à langer top !",d:"Il y a 5 jours"}]},
+  {id:12,n:"Gare Lille-Flandres (Hall libre)",a:"Place de la Gare, 59000 Lille",t:"Gare SNCF",e:"🚉",
+   bg:"linear-gradient(145deg,#040a14,#020608)",r:3.8,ur:3.5,rv:445,p:0,h:"04h30–01h00",free:true,dist:330,
+   desc:"Sanitaires publics gratuits de la Gare Lille-Flandres. Zone commune. Nettoyage fréquent SNCF.",
+   amen:["🆓 Accès libre","♿ PMR","🚇 Métro direct","🧼 Savon","⏰ Ouverture tardive"],
+   tags:["gratuit","pmr","metro","ouvert24"],
+   revs:[{a:"Sarah M.",pr:4,ur:3,t:"Propre et accessible.",d:"Hier"},{a:"Patrick D.",pr:3,ur:3,t:"Correctes, chargées.",d:"Il y a 3 jours"}]},
+  {id:13,n:"Citadelle de Lille — Parc",a:"Avenue du 43ème Régiment, 59000 Lille",t:"Parc · Public",e:"🏰",
+   bg:"linear-gradient(145deg,#061008,#04080c)",r:4.2,ur:4.3,rv:78,p:0,h:"07h–20h",free:true,dist:700,
+   desc:"Sanitaires du parc de la Citadelle. Accès libre, entretien municipal. Familles et sportifs.",
+   amen:["🆓 Accès libre","🌳 Nature","♿ PMR","👶 Familles","🚰 Fontaine"],
+   tags:["gratuit","pmr","bebe"],
+   revs:[{a:"Marie-France D.",pr:4,ur:4,t:"Très bien famille.",d:"Il y a 2 jours"},{a:"Sébastien L.",pr:4,ur:4,t:"Propres.",d:"Il y a 1 semaine"}]},
+  {id:14,n:"Médiathèque Jean Lévy",a:"32 Rue Edouard Delesalle, 59000 Lille",t:"Médiathèque",e:"📚",
+   bg:"linear-gradient(145deg,#04100a,#030a08)",r:4.4,ur:4.6,rv:56,p:0,h:"13h–19h (mar–sam)",free:true,dist:550,
+   desc:"Sanitaires de la médiathèque municipale. Accès libre pour tous. Propre et calme.",
+   amen:["🆓 Accès libre","🧼 Savon","📚 Calme","♿ PMR","🔒 Sécurisé"],
+   tags:["gratuit","pmr"],
+   revs:[{a:"Claire P.",pr:5,ur:5,t:"Impeccable !",d:"Il y a 3 jours"},{a:"Louis V.",pr:4,ur:5,t:"Très propre.",d:"Il y a 1 semaine"}]},
+];
+
+/* ══════════ SUGGESTIONS DATA ══════════ */
+let SUGGESTIONS = [
+  {id:0,ico:"🗺️",title:"Carte hors-ligne",desc:"Pouvoir utiliser la carte même sans connexion Internet, notamment dans les zones mal couvertes du Nord.",cat:"Carte & Navigation",votes:47,voted:false},
+  {id:1,ico:"🔔",title:"Alerte quand un lieu se libère",desc:"Recevoir une notification quand un lieu complet ou fermé devient à nouveau disponible près de moi.",cat:"Notifications",votes:38,voted:false},
+  {id:2,ico:"⌚",title:"Intégration Apple Watch / Wear OS",desc:"Afficher le code d'accès directement sur la montre connectée pour un accès encore plus rapide.",cat:"Technologie",votes:29,voted:false},
+  {id:3,ico:"👨‍👩‍👧",title:"Mode famille — recherche groupée",desc:"Rechercher plusieurs lieux simultanément pour toute la famille lors d'une sortie, avec filtres bébé automatiques.",cat:"Familles",votes:24,voted:false},
+  {id:4,ico:"🚲",title:"Intégration V'Lille / Transpole",desc:"Afficher les sanitaires proches des stations V'Lille et des arrêts de transports en commun sur la carte.",cat:"Mobilité",votes:62,voted:false},
+  {id:5,ico:"📸",title:"Photos des sanitaires",desc:"Permettre aux hôtes et utilisateurs d'ajouter des photos pour mieux prévisualiser la qualité avant de réserver.",cat:"Qualité",votes:55,voted:false},
+  {id:6,ico:"🏆",title:"Programme de fidélité",desc:"Gagner des points à chaque visite, échangeables contre des visites gratuites ou des réductions sur GoWc+.",cat:"Abonnement",votes:41,voted:false},
+  {id:7,ico:"🌍",title:"Extension à toute la France",desc:"Après le Nord (59), déployer GoWc dans d'autres métropoles : Paris, Lyon, Bordeaux, Marseille.",cat:"Expansion",votes:78,voted:false},
+  {id:8,ico:"♿",title:"Filtre accessibilité renforcée",desc:"Filtres détaillés PMR : largeur porte, espace rotatif, poignées, miroir inclinable. Pour une meilleure inclusion.",cat:"Accessibilité",votes:33,voted:false},
+  {id:9,ico:"📊",title:"Rapport qualité mensuel pour les hôtes",desc:"Envoyer automatiquement un rapport mensuel aux hôtes avec leurs statistiques, avis et conseils d'amélioration.",cat:"Espace hôte",votes:26,voted:false},
+];
+
+/* ══════════ STATE ══════════ */
+let AF = 'all';
+let SORT = 'priority'; // 'priority' | 'distance' | 'rating' | 'all'
+let cityF = '';
+let curP = null;
+let userLat = null, userLng = null;
+let placeStarVal = 0, userStarVal = 0;
+
+const placeDescs = ['','😞 Mauvais — à éviter','😐 Passable — peut mieux faire','🙂 Correct — convenable','😊 Bien — propre et agréable','🤩 Excellent — irréprochable !'];
+const userDescs  = ['','😤 Irrespectueux — à signaler','😕 Peu soigneux — quelques problèmes','🙂 Correct — comportement acceptable','😊 Soigneux — lieu respecté','🌟 Exemplaire — parfait !'];
+
+/* ══════════ NAVIGATION ══════════ */
+function go(s) {
+  document.querySelectorAll('.screen').forEach(x => x.classList.remove('show'));
+  document.querySelectorAll('.bn').forEach(b => b.classList.remove('on'));
+  document.getElementById('s-' + s).classList.add('show');
+  const bn = document.getElementById('bn-' + s);
+  if (bn) bn.classList.add('on');
+  window.scrollTo(0, 0);
+  if (s === 'explore') renderGrid();
+  if (s === 'host')    { initDash(); calcSim(); }
+  if (s === 'scanner') resetScanner();
+  if (s === 'suggest') renderSuggestions();
+}
+
+/* ══════════ GÉOLOCALISATION ══════════ */
+function doGeolocate() {
+  if (!navigator.geolocation) {
+    toast('⚠️ Géolocalisation non disponible sur ce navigateur');
+    return;
+  }
+  const btn = document.getElementById('geoBtn');
+  const ind = document.getElementById('geoIndicator');
+  const txt = document.getElementById('geoText');
+  btn.classList.add('loading');
+  btn.textContent = '⏳';
+  ind.classList.add('show');
+  txt.textContent = 'Localisation en cours…';
+
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      userLat = pos.coords.latitude;
+      userLng = pos.coords.longitude;
+      btn.classList.remove('loading');
+      btn.textContent = '✅';
+      // Reverse geocode (simulated)
+      const city = 'Lille'; // In production: real reverse geocoding
+      document.getElementById('sInput').value = '';
+      document.getElementById('sInput').placeholder = '📍 Position détectée : ' + city + ', Nord (59)';
+      txt.textContent = '📍 Position détectée — Résultats triés par distance';
+      // Show my position on map
+      const myPos = document.getElementById('myPos');
+      if (myPos) myPos.classList.add('show');
+      // Auto sort by distance
+      setSort(document.getElementById('sort-distance'), 'distance');
+      toast('📍 Géolocalisation réussie ! Résultats triés par distance');
+    },
+    err => {
+      btn.classList.remove('loading');
+      btn.textContent = '📍';
+      ind.classList.remove('show');
+      const msgs = { 1:'Permission refusée. Autorisez la localisation dans votre navigateur.', 2:'Position non disponible.', 3:'Délai dépassé. Réessayez.' };
+      toast('⚠️ ' + (msgs[err.code] || 'Erreur de géolocalisation'));
+    },
+    { timeout: 10000, maximumAge: 60000 }
+  );
+}
+
+/* ══════════ SORT ══════════ */
+function setSort(el, sort) {
+  SORT = sort;
+  document.querySelectorAll('.sort-btn').forEach(b => { b.classList.remove('on', 'on-gold'); });
+  el.classList.add(sort === 'priority' ? 'on-gold' : 'on');
+  renderGrid();
+}
+
+function sortPlaces(items) {
+  if (SORT === 'priority') {
+    // Payants d'abord, puis gratuits, par distance dans chaque groupe
+    return [...items].sort((a, b) => {
+      if (!a.free && b.free) return -1;
+      if (a.free && !b.free) return 1;
+      return (a.dist || 9999) - (b.dist || 9999);
+    });
+  }
+  if (SORT === 'distance') {
+    return [...items].sort((a, b) => (a.dist || 9999) - (b.dist || 9999));
+  }
+  if (SORT === 'rating') {
+    return [...items].sort((a, b) => b.r - a.r);
+  }
+  return items;
+}
+
+/* ══════════ GRID ══════════ */
+function renderGrid() {
+  const q = (document.getElementById('sInput')?.value || '').toLowerCase();
+  let items = PLACES.filter(p => {
+    const mf = AF === 'all' ? true : AF === 'gratuit' ? p.free : AF === 'payant' ? !p.free : p.tags.includes(AF);
+    const mc = !cityF || p.a.includes(cityF);
+    const ms = !q || p.n.toLowerCase().includes(q) || p.a.toLowerCase().includes(q) || p.t.toLowerCase().includes(q);
+    return mf && mc && ms;
+  });
+
+  items = sortPlaces(items);
+
+  document.getElementById('grid').innerHTML = items.length
+    ? items.map(p => {
+        const isPriority = !p.free && SORT === 'priority';
+        const distStr = p.dist ? `${p.dist}m` : '';
+        return `
+        <div class="pc ${p.free ? 'is-free' : ''} ${isPriority ? 'is-priority' : ''}" onclick="goDetail(${p.id})">
+          ${isPriority ? `<div class="priority-tag">⭐ Prioritaire</div>` : ''}
+          <div class="pct" style="background:${p.bg}">
+            <span style="position:relative;z-index:1">${p.e}</span>
+            <button class="pc-fav" onclick="event.stopPropagation();favTgl(this)">🤍</button>
+            <div class="pc-badge-wrap">
+              ${p.free
+                ? `<span class="pill pg" style="font-size:.59rem">🆓 Gratuit</span>`
+                : `<span class="pill pp" style="font-size:.59rem">💶 1,99 €</span>`}
+            </div>
+            ${distStr ? `<div class="pc-dist">${distStr}</div>` : ''}
+          </div>
+          <div class="pcb">
+            <div class="pc-nm">${p.n}</div>
+            <div class="pc-ad">📍 ${p.a.split(',').slice(1).join(',').trim() || p.a}</div>
+            <div class="pc-ft">
+              <div class="pc-rt">
+                <span class="s">★</span> ${p.r}
+                <span style="color:rgba(255,255,255,.18);font-size:.6rem;margin-left:2px">(${p.rv})</span>
+                <span style="color:var(--plus);margin-left:5px;font-size:.6rem">👤 ${p.ur}</span>
+              </div>
+              <div class="pc-pr ${p.free ? 'f' : 'p'}">${p.free ? 'Gratuit' : '1,99 €'}</div>
+            </div>
+            <div class="pc-tgs">${p.amen.slice(0, 3).map(a => `<span class="pc-tg">${a}</span>`).join('')}</div>
+          </div>
+        </div>`;
+      }).join('')
+    : `<div style="grid-column:1/-1;text-align:center;padding:60px;color:rgba(255,255,255,.4)"><div style="font-size:3rem;margin-bottom:10px">🔍</div><p>Aucun résultat. Essayez un autre filtre.</p></div>`;
+}
+
+function filterGo(el, f) {
+  AF = f;
+  document.querySelectorAll('.chip').forEach(c => { c.classList.remove('on', 'on-g'); });
+  el.classList.add(f === 'gratuit' ? 'on-g' : 'on');
+  renderGrid();
+}
+
+function setCityFilter(el, city) {
+  cityF = city;
+  document.querySelectorAll('.ctab').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  renderGrid();
+}
+
+function favTgl(b) {
+  b.textContent = b.textContent === '🤍' ? '❤️' : '🤍';
+  toast(b.textContent === '❤️' ? '❤️ Ajouté aux favoris' : 'Retiré des favoris');
+}
+
+/* ══════════ DETAIL ══════════ */
+function goDetail(id) {
+  const p = PLACES.find(x => x.id === id);
+  if (!p) return;
+  curP = p;
+
+  document.getElementById('dBanner').style.background = p.bg;
+  document.getElementById('dEmoji').textContent = p.e;
+  document.getElementById('dName').textContent = p.n;
+  document.getElementById('dAddr').textContent = '📍 ' + p.a;
+
+  document.getElementById('dBadges').innerHTML =
+    (p.free ? `<span class="pill pg">🆓 Gratuit · Accès libre</span>`
+             : `<span class="pill pp">💶 1,99 € / visite</span>`)
+    + ` <span class="pill pw" style="margin-left:5px">${p.t}</span>`;
+
+  const st = '★'.repeat(Math.floor(p.r)) + '☆'.repeat(5 - Math.floor(p.r));
+  document.getElementById('dMeta').innerHTML =
+    `<span style="color:var(--plus)">${st}</span><strong>${p.r}</strong>
+     <span style="color:rgba(255,255,255,.4);font-size:.74rem">(${p.rv} avis)</span>
+     ${p.dist ? `<span class="pill pw" style="font-size:.6rem">📍 ${p.dist}m</span>` : ''}`;
+
+  // SCORES OVERVIEW
+  document.getElementById('dScores').innerHTML = `
+    <div class="score-box">
+      <div class="score-box-val" style="background:linear-gradient(135deg,#0088EE,var(--t2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">${p.r}</div>
+      <div class="score-stars">${'★'.repeat(Math.floor(p.r))}${'☆'.repeat(5-Math.floor(p.r))}</div>
+      <div class="score-box-lbl">Note du lieu</div>
+    </div>
+    <div class="score-box">
+      <div class="score-box-val" style="color:var(--plus)">${p.ur}</div>
+      <div class="score-stars" style="color:var(--plus)">${'★'.repeat(Math.floor(p.ur))}${'☆'.repeat(5-Math.floor(p.ur))}</div>
+      <div class="score-box-lbl">Note des usagers</div>
+    </div>`;
+
+  document.getElementById('dDesc').textContent = p.desc;
+  document.getElementById('dAmen').innerHTML = p.amen.map(a =>
+    `<div class="ar ${p.free ? 'gr' : ''}">${a}</div>`).join('');
+
+  // BOOKING
+  const bpr = document.getElementById('bPrice');
+  const bco = document.getElementById('bComm');
+  const bfn = document.getElementById('bFreeNote');
+  const bfr = document.getElementById('bFeeRow');
+  const bsr = document.getElementById('bSvcRow');
+  const bbt = document.getElementById('bBtn');
+  const bno = document.getElementById('bNote');
+
+  if (p.free) {
+    bpr.className = 'bk-price gf';
+    bpr.innerHTML = 'Gratuit <sub>· Accès libre</sub>';
+    bco.innerHTML = '';
+    bfn.innerHTML = `<div class="free-note">🆓 <div><strong>Aucun paiement requis</strong><br><span style="font-size:.67rem;opacity:.8">Accès libre. Pensez à noter votre visite !</span></div></div>`;
+    bfr.style.display = 'none';
+    bsr.style.display = 'none';
+    document.getElementById('bTotal').textContent = 'Gratuit';
+    bbt.className = 'bact free';
+    bbt.textContent = '🚶 Accéder directement';
+    bno.textContent = 'Accès libre · Pensez à noter le lieu ⭐';
+  } else {
+    bpr.className = 'bk-price';
+    bpr.innerHTML = '1,99 € <sub>/ visite</sub>';
+    bco.innerHTML = '<strong style="color:var(--g2)">1,49 €</strong> pour l\'hôte · <strong style="color:var(--t2)">0,50 €</strong> commission GoWc';
+    bfn.innerHTML = '';
+    bfr.style.display = 'flex';
+    bsr.style.display = 'flex';
+    document.getElementById('bTotal').textContent = '1,99 €';
+    bbt.className = 'bact pay';
+    bbt.textContent = '⚡ Réserver — 1,99 €';
+    bno.textContent = '🔒 Stripe · Code valable 1 heure';
+  }
+
+  document.getElementById('bHours').textContent = p.h;
+  document.getElementById('codeBox').classList.remove('vis');
+
+  // REVIEWS with double scores
+  document.getElementById('dRevCnt').textContent = `— ${p.revs.length} avis`;
+  document.getElementById('dRevs').innerHTML = p.revs.map(r => `
+    <div class="rc">
+      <div class="rca">
+        <div class="rca-left"><strong>${r.a}</strong></div>
+        <div class="rca-scores">
+          <span class="score-badge sb-place">🚽 ${r.pr}★</span>
+          <span class="score-badge sb-user">👤 ${r.ur}★</span>
+        </div>
+      </div>
+      <div class="rct">${r.t}</div>
+      <div class="rcd">${r.d}</div>
+    </div>`).join('');
+
+  // Galerie photos
+  const thumbsEl = document.getElementById('galleryThumbs');
+  const allBtn   = document.getElementById('galleryAllBtn');
+  const photos   = getPhotos(p.id);
+  if(photos.length >= 2){
+    thumbsEl.style.display = 'grid';
+    thumbsEl.innerHTML = [1,2].map(i => {
+      const grad = getPhotoGrad(p.id, i);
+      const emojis = {1:'🪴',2:'✨'};
+      return `<div class="gallery-thumb" onclick="openPhotoViewer(${p.id},${i})" style="background:${grad}">
+        <div style="font-size:2.5rem">${emojis[i]||'🚿'}</div>
+        ${i===2?'<div class="gallery-count">+3 photos</div>':''}
+      </div>`;
+    }).join('');
+    allBtn.style.display = 'block';
+  } else {
+    thumbsEl.style.display = 'none';
+    allBtn.style.display = 'none';
+  }
+  // Style banner bg
+  document.getElementById('dBanner').style.background = p.bg;
+
+  go('detail');
+  document.getElementById('bn-explore').classList.add('on');
+}
+
+let currentBookingCode = null;
+let qrTimerInterval = null;
+
+function doBook() {
+  if (!curP) return;
+  if (curP.free) { toast('🚶 Accès libre ! Pensez à noter ⭐'); return; }
+
+  const c = Math.floor(1000 + Math.random() * 9000);
+  currentBookingCode = c;
+  document.getElementById('codeNum').textContent = c;
+  document.getElementById('codeBox').classList.add('vis');
+
+  // Generate QR Code
+  const qrEl = document.getElementById('qrContainer');
+  qrEl.innerHTML = '';
+  try {
+    new QRCode(qrEl, {
+      text: JSON.stringify({ code: c, lieu: curP.n, ts: Date.now(), montant: '2.00' }),
+      width: 148, height: 148,
+      colorDark: '#0A1628', colorLight: '#FFFFFF',
+      correctLevel: QRCode.CorrectLevel.H,
+    });
+  } catch(e) {
+    qrEl.innerHTML = '<div style="width:148px;height:148px;background:repeating-conic-gradient(#0A1628 0% 25%,#fff 0% 50%) 0 0/10px 10px;border-radius:4px"></div>';
+  }
+
+  // Countdown 1h
+  if (qrTimerInterval) clearInterval(qrTimerInterval);
+  let secs=3600;
+  const cd = document.getElementById('qrCountdown');
+  const bar = document.getElementById('qrTimerBar');
+  qrTimerInterval = setInterval(() => {
+    secs--;
+    const m = Math.floor(secs/60), s = secs%60;
+    cd.textContent = (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+    bar.style.width = (secs/3600*100)+'%';
+    if (secs <= 120) { cd.style.color='var(--rose)'; bar.style.background='linear-gradient(90deg,var(--rose),#ff6b6b)'; }
+    if (secs <= 0) { clearInterval(qrTimerInterval); cd.textContent='Expiré'; toast('⏰ QR code expiré. Réservez à nouveau.'); }
+  }, 1000);
+
+  toast('✅ QR Code généré ! Montrez-le à l\'hôte pour accéder.');
+}
+
+/* ══ SCANNER HÔTE ══ */
+const DEMO_BOOKINGS = {
+  4829: { visitor:'Sophie M.', note:4.9, msg:'Abonnée GoWc+ · 12 visites' },
+  7734: { visitor:'Jean-Paul L.', note:4.6, msg:'Membre depuis mars 2025 · 8 visites' },
+  2156: { visitor:'Marie C.', note:5.0, msg:'Super utilisatrice · 23 visites · ♿ PMR' },
+  9901: { visitor:'Thomas R.', note:4.3, msg:'Nouveau membre · 2 visites' },
+};
+
+let scannedCode = null;
+
+function simulateScan() {
+  const keys = Object.keys(DEMO_BOOKINGS).map(Number);
+  const code = (currentBookingCode && DEMO_BOOKINGS[currentBookingCode])
+    ? currentBookingCode
+    : keys[Math.floor(Math.random() * keys.length)];
+  processCode(code);
+}
+
+function validateManual() {
+  const v = document.getElementById('manualCode').value.trim();
+  const n = parseInt(v);
+  if (!v || v.length !== 4 || isNaN(n)) { toast('⚠️ Entrez un code de 4 chiffres'); return; }
+  processCode(n);
+}
+
+function processCode(code) {
+  scannedCode = code;
+  const b = DEMO_BOOKINGS[code] || { visitor:'Utilisateur GoWc', note:4.5, msg:'Réservation valide' };
+  const stars = '★'.repeat(Math.floor(b.note))+'☆'.repeat(5-Math.floor(b.note));
+  document.getElementById('scanCode').textContent = code;
+  document.getElementById('scanResultInfo').textContent = 'Code #'+code+' · Valide · Paiement 2,00 € confirmé';
+  document.getElementById('scanVisitorCard').innerHTML =
+    '<div style="display:flex;align-items:center;gap:10px">'
+    +'<div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--t1),var(--t2));display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0">👤</div>'
+    +'<div><div style="font-weight:700;font-size:.83rem">'+b.visitor+'</div>'
+    +'<div style="font-size:.66rem;color:var(--a40);margin-top:2px">Note : <span style="color:var(--plus)">'+stars+'</span> '+b.note+'</div>'
+    +'<div style="font-size:.66rem;color:var(--a40)">'+b.msg+'</div></div></div>';
+  document.getElementById('scan-waiting').style.display='none';
+  document.getElementById('scan-result').style.display='block';
+  document.getElementById('scan-refused').style.display='none';
+}
+
+function acceptAccess() {
+  document.getElementById('scan-result').style.display='none';
+  toast('✅ Accès confirmé ! +1,50 € crédité sur votre compte');
+  setTimeout(resetScanner, 1800);
+}
+
+function refuseAccess() {
+  document.getElementById('scan-result').style.display='none';
+  document.getElementById('scan-refused').style.display='block';
+  toast('❌ Accès refusé — aucun crédit débité');
+}
+
+function resetScanner() {
+  scannedCode=null;
+  const mc=document.getElementById('manualCode');if(mc)mc.value='';
+  document.getElementById('scan-waiting').style.display='block';
+  document.getElementById('scan-result').style.display='none';
+  document.getElementById('scan-refused').style.display='none';
+}
+
+/* ══════════ DOUBLE NOTATION ══════════ */
+function setStarPlace(n) {
+  placeStarVal = n;
+  document.querySelectorAll('#placeStars span').forEach((s, i) => s.classList.toggle('lit', i < n));
+  document.getElementById('placeScore').textContent = n + '/5';
+  document.getElementById('placeDesc').textContent = placeDescs[n] || '';
+}
+
+function setStarUser(n) {
+  userStarVal = n;
+  document.querySelectorAll('#userStars span').forEach((s, i) => s.classList.toggle('lit', i < n));
+  document.getElementById('userScore').textContent = n + '/5';
+  document.getElementById('userDesc').textContent = userDescs[n] || '';
+}
+
+// Hover effects for stars
+document.addEventListener('DOMContentLoaded', () => {
+  ['placeStars','userStars'].forEach(id => {
+    const wrap = document.getElementById(id);
+    if (!wrap) return;
+    const isp = id === 'placeStars';
+    wrap.querySelectorAll('span').forEach(s => {
+      s.addEventListener('mouseenter', () => {
+        const v = parseInt(s.dataset.val);
+        wrap.querySelectorAll('span').forEach((x, i) => {
+          x.classList.toggle('lit', i < v);
+        });
+      });
+      s.addEventListener('mouseleave', () => {
+        const cur = isp ? placeStarVal : userStarVal;
+        wrap.querySelectorAll('span').forEach((x, i) => {
+          x.classList.toggle('lit', i < cur);
+        });
+      });
+    });
+  });
+});
+
+/* ══════════ DASHBOARD ══════════ */
+const WD = [
+  {d:'Lun',v:15},{d:'Mar',v:22.5},{d:'Mer',v:18},
+  {d:'Jeu',v:28.5},{d:'Ven',v:9},{d:'Sam',v:0},{d:'Auj.',v:22.5,tod:true}
+];
+const TX = [
+  {i:'☕',n:'Café Méo — Visite (1,49€ net)',t:'14h32',a:'+1,50 €',pos:true},
+  {i:'☕',n:'Café Méo — Visite (1,49€ net)',t:'13h45',a:'+1,50 €',pos:true},
+  {i:'☕',n:'Café Méo — Visite (1,49€ net)',t:'12h11',a:'+1,50 €',pos:true},
+  {i:'📊',n:'Commission GoWc (0,50€/visite)',t:'Auto',a:'−0,50€',pos:false},
+];
+
+function initDash() {
+  const mx = Math.max(...WD.map(d => d.v));
+  document.getElementById('bars').innerHTML = WD.map(d =>
+    `<div class="bar ${d.tod ? 'tod' : ''}" style="height:${mx > 0 ? Math.max(5, (d.v/mx)*61) : 5}px">
+      <div class="btip">${d.v.toFixed(2).replace('.', ',')} €</div>
+    </div>`).join('');
+  document.getElementById('blabs').innerHTML = WD.map(d => `<div class="blab">${d.d}</div>`).join('');
+  document.getElementById('txList').innerHTML = TX.map(t =>
+    `<div class="txr">
+      <div class="tx-i">${t.i}</div>
+      <div class="tx-inf"><div class="tx-n">${t.n}</div><div class="tx-t">Aujourd'hui · ${t.t}</div></div>
+      <div class="tx-a ${t.pos ? 'tp' : 'tn'}">${t.a}</div>
+    </div>`).join('');
+}
+
+function calcSim() {
+  const v = parseInt(document.getElementById('sV')?.value || 10);
+  const d = parseInt(document.getElementById('sD')?.value || 7);
+  const net=1.49;
+  document.getElementById('srW').textContent = (v * net * d).toFixed(0) + '€';
+  document.getElementById('srM').textContent = (v * net * d * 4.33).toFixed(0) + '€';
+  document.getElementById('srY').textContent = (v * net * d * 52).toFixed(0) + '€';
+}
+
+/* ══════════ SUGGESTIONS ══════════ */
+function renderSuggestions() {
+  const sorted = [...SUGGESTIONS].sort((a, b) => b.votes - a.votes);
+  document.getElementById('suggestGrid').innerHTML = sorted.map(s => `
+    <div class="sug-card ${s.voted ? 'voted' : ''}">
+      <div class="sug-ico">${s.ico}</div>
+      <div class="sug-title">${s.title}</div>
+      <div class="sug-desc">${s.desc}</div>
+      <div style="margin-bottom:7px"><span class="pill pw" style="font-size:.6rem">${s.cat}</span></div>
+      <div class="sug-vote">
+        <button class="vote-btn vote-up ${s.voted ? 'voted' : ''}" onclick="vote(${s.id}, this)">
+          👍 <span>${s.voted ? 'Voté' : 'Voter'}</span>
+        </button>
+        <span class="vote-count">${s.votes} vote${s.votes > 1 ? 's' : ''}</span>
+      </div>
+    </div>`).join('');
+}
+
+function vote(id, btn) {
+  const sug = SUGGESTIONS.find(s => s.id === id);
+  if (!sug) return;
+  if (sug.voted) { toast('✅ Vous avez déjà voté pour cette idée'); return; }
+  sug.voted = true;
+  sug.votes++;
+  toast('👍 Vote enregistré ! Merci pour votre contribution');
+  renderSuggestions();
+}
+
+function submitSuggestion() {
+  const title = document.getElementById('sugTitle').value.trim();
+  const desc  = document.getElementById('sugDesc').value.trim();
+  const cat   = document.getElementById('sugCat').value;
+  if (!title) { toast('⚠️ Écrivez votre idée avant d\'envoyer'); return; }
+  const newSug = {
+    id: SUGGESTIONS.length,
+    ico: '💡',
+    title,
+    desc: desc || 'Suggestion de la communauté.',
+    cat,
+    votes: 1,
+    voted: true,
+  };
+  SUGGESTIONS.push(newSug);
+  document.getElementById('sugTitle').value = '';
+  document.getElementById('sugDesc').value = '';
+  toast('💡 Suggestion envoyée ! Merci pour votre idée');
+  renderSuggestions();
+}
+
+/* ══════════ MODALS ══════════ */
+function openM(k)  { document.getElementById('ov-' + k).classList.add('open'); }
+function closeM(k) { document.getElementById('ov-' + k).classList.remove('open'); }
+document.querySelectorAll('.ov').forEach(o =>
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); })
+);
+function switchTab(el) { document.querySelectorAll('.mtab').forEach(t => t.classList.remove('on')); el.classList.add('on'); }
+function doLogin()       { closeM('auth');        toast('✅ Bienvenue Noé ! Connexion réussie 🎉'); }
+function subscribePlus() { closeM('plus');         toast('⭐ GoWc+ activé ! Accès illimité'); }
+function submitPlace()   { closeM('addPlace');    toast('🚽 Annonce soumise ! Validation sous 24h'); }
+function submitReview()  {
+  if (!placeStarVal) { toast('⚠️ Notez d\'abord le lieu (1 à 5 étoiles)'); return; }
+  closeM('review');
+  placeStarVal = 0; userStarVal = 0;
+  document.querySelectorAll('#placeStars span, #userStars span').forEach(s => s.classList.remove('lit'));
+  document.getElementById('placeScore').textContent = '—';
+  document.getElementById('userScore').textContent = '—';
+  document.getElementById('placeDesc').textContent = 'Cliquez sur les étoiles pour noter';
+  document.getElementById('userDesc').textContent = 'Respect des lieux, ponctualité, comportement';
+  toast('⭐ Avis double publié, merci !');
+}
+function saveProfile()  { closeM('editProfile'); toast('✅ Profil mis à jour'); }
+
+/* ══════════ TOAST ══════════ */
+function toast(m) {
+  const t = document.getElementById('toast');
+  t.textContent = m;
+  t.className = 'show';
+  setTimeout(() => t.className = '', 3200);
+}
+
+/* ══════════ INIT ══════════ */
+renderGrid();
+calcSim();
+initDash();
+renderSuggestions();
+</script>
+</body>
+</html>
