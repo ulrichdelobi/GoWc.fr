@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#030C1A">
 <meta name="description" content="GoWc — Sanitaires propres dans tout le Nord (59). Géolocalisation, notes, avis.">
@@ -2284,6 +2285,19 @@ renderGrid();
 calcSim();
 initDash();
 renderSuggestions();
+// --- CONNEXION SUPABASE ---
+const supabaseUrl = 'https://ebcxhnxebstkywwtaet.supabase.co';
+const supabaseKey = 'VOTRE_CLE_ANON_ICI'; // <-- Collez votre longue clé ici !
+const _supabase = window.supabase ? window.supabase.createClient(supabaseUrl, supabaseKey) : null;
+
+async function chargerToilettesSupabase() {
+  if (!_supabase) return;
+  const { data, error } = await _supabase.from('toilets').select('*');
+  if (error) console.error("Erreur Supabase:", error);
+  else console.log("Base de données connectée ! Données :", data);
+}
+chargerToilettesSupabase();
+
 </script>
 </body>
 </html>
